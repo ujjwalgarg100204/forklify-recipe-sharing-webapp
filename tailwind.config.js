@@ -2,7 +2,17 @@
 module.exports = {
 	content: ["./src/**/*.{html,ts,ejs}"],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				"small-heading": ["Montserrat", "sans-serif"],
+				body: ["Raleway", "sans-serif"],
+				heading: ["Poppins", "sans-serif"],
+			},
+		},
 	},
-	plugins: []
+	plugins: [
+		require("prettier-plugin-tailwindcss"),
+		require("tailwindcss-elevation"),
+	],
 };
+4;

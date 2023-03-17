@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import config from "./config/config";
+import path from "path";
 
 dotenv.config();
 
@@ -11,7 +12,7 @@ const PORT = process.env.PORT;
 config(app);
 
 app.get("/", (req: Request, res: Response) => {
-	res.render("index");
+	res.render("pages/index");
 });
 
 app.listen(PORT, () => {
