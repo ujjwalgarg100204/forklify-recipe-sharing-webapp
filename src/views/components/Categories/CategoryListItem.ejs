@@ -1,0 +1,9 @@
+<li class="flex flex-col gap-4 items-center justify-center">
+    <%- include(`../Icons/Food/${svg}`, {
+    containerClass: "w-28 h-28 rounded-full p-7 bg-[rgb(188,108,37)] shadow-[inset_-5px_5px_5px_rgba(255,255,255,0.5)] relative before:absolute before:w-full before:h-full before:-z-1 before:shadow-2xl before:rounded-full before:inset-0",
+    svgClass:"fill-white h-full w-full"
+    }) -%>
+    <span class="font-body capitalize font-[550] ">
+        <%= text %>
+    </span>
+</li>

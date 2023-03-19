@@ -1,9 +1,7 @@
 "use strict";
-var __importDefault =
-	(this && this.__importDefault) ||
-	function (mod) {
-		return mod && mod.__esModule ? mod : { default: mod };
-	};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -14,8 +12,14 @@ const PORT = process.env.PORT;
 // apply all the configuration
 (0, config_1.default)(app);
 app.get("/", (req, res) => {
-	res.render("pages/index");
+    res.render("pages/index");
+});
+app.get("/login", (req, res) => {
+    res.render("pages/login");
+});
+app.get("/find-recipe", (req, res) => {
+    res.render("pages/find-recipe");
 });
 app.listen(PORT, () => {
-	console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+    console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });

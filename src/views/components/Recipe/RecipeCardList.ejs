@@ -1,0 +1,5 @@
+<div class="flex gap-8 flex-wrap">
+    <% Array(8).fill("").forEach(_ => { %>
+        <%- include("./RecipeCard", { bgImage: "images/food/pexels-jane-doan-1099680.jpg", region: "Chinese", time: "4 hours", stars: 4, title: "Pav Bhaji" }) -%>
+    <% }) %>
+</div>

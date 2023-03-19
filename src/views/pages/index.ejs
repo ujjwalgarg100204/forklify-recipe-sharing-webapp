@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Express & TS</title>
-    <link rel="stylesheet" href="styles/style.css" />
-</head>
+<%- include("../components/Layout/HeadIncluder", {titleOfPage: "Forklify"}) -%>
+
 <body class="space-y-20 text-[rgb(40,54,24)] font-body">
 <header class="relative h-screen px-12 py-5 text-white">
     <div
@@ -103,7 +93,7 @@
                 for="ingredient"
                 class="flex w-12 cursor-pointer items-center"
         >
-            <%- include("../components/icons/ui/actions/magnifying-glass", {containerClass: "w-10", svgClass: "fill-amber-600 w-full h-full"}) -%>
+            <%- include("../components/Icons/UI/Actions/MagnifyingGlass", {containerClass: "w-10", svgClass: "fill-amber-600 w-full h-full"}) -%>
         </label>
         <input
                 class="flex h-full w-full flex-shrink flex-grow basis-[25rem] border-none bg-white text-xl text-black outline-0 placeholder:text-xl placeholder:text-[rgba(251,191,36,0.6)] focus:outline-none"
@@ -123,64 +113,25 @@
 <section class="text-center space-y-7 px-20">
     <h1 class="text-7xl font-bold font-heading">Categories</h1>
     <p class="text-xl ">A large selection of dishes for cooking</p>
-    <ul class="flex gap-16 justify-center pt-4">
-        <% [
-                { svg: "bread-slice", text: "breakfast" },
-                        { svg: "drumstick-bite", text: "lunch" },
-                        { svg: "bowl-rice", text: "dinner" },
-                        { svg: "cake-candles", text: "dessert" },
-                        { svg: "coffee", text: "drinks" },
-                        { svg: "bowl-rice", text: "soups" },
-                        { svg: "burger", text: "fast food" },
-                        { svg: "shrimp", text: "seafood" }
-                ].forEach(x => { %>
-            <li class="flex flex-col gap-4 items-center justify-center">
-                <%- include(`../components/icons/food/${x.svg}`, {
-                containerClass: "w-28 h-28 rounded-full p-7 bg-[rgb(188,108,37)] shadow-[inset_-5px_5px_5px_rgba(255,255,255,0.5)] relative before:absolute before:w-full before:h-full before:-z-1 before:shadow-2xl before:rounded-full before:inset-0",
-                svgClass:"fill-white h-full w-full"
-                }) -%>
-                <span class="font-body capitalize font-[550] ">
-                    <%= x.text %>
-                </span>
-            </li>
-        <% }) %>
+    <%- include("../components/Categories/CategoryList") -%>
 
-    </ul>
 </section>
 
 <section class="text-center space-y-8">
     <h1 class="text-7xl font-bold tracking-tight font-heading">Recommendations</h1>
     <div class="flex gap-32 justify-center items-center pt-8">
         <button>
-            <%- include("../components/icons/ui/arrow-left", {containerClass: "w-10", svgClass: "h-full w-full fill-[rgb(40,24,24)]"}) -%>
+            <%- include("../components/Icons/UI/ArrowLeft", {containerClass: "w-10", svgClass: "h-full w-full fill-[rgb(40,24,24)]"}) -%>
         </button>
-        <div class="flex justify-center gap-12">
-            <% ["pexels-ash-376464.jpg", "pexels-chan-walrus-958545.jpg", "pexels-chevanon-photography-323682.jpg", "pexels-chokniti-khongchum-2280545.jpg"].forEach(pic => { %>
-                <div class="w-60 overflow-hidden text-center space-y-3 font-body font-[550]">
-                    <div class="bg-cover text-white bg-center w-60 h-60 px-4 pb-5 flex items-end justify-between rounded-[2.5rem] text-sm"
-                         style="background-image: url('images/food/<%= pic %>')">
-                        <div class="flex justify-start gap-1 items-center rounded-full p-1 px-3 bg-[rgba(0,0,0,0.3)]"
-                             style="text-shadow: 1px 1px 3px #000">
-                            <%- include("../components/icons/reactions/heart", {containerClass: "h-5 w-5", svgClass: "h-full w-full fill-white drop-shadow-xl"}) -%>
-                            5.2k
-                        </div>
-                        <div class="flex justify-start gap-1 items-center rounded-full p-1 px-3 bg-[rgba(0,0,0,0.3)]"
-                             style="text-shadow: 1px 1px 3px #000">
-                            <%- include("../components/icons/ui/clock", {containerClass: "h-5 w-5", svgClass: "h-full w-full fill-white drop-shadow-xl"}) -%>
-                            25min
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                </div>
-            <% }) %>
 
-        </div>
+        <%- include("../components/Recipe/RecipeRecommendationList") -%>
+
         <button>
-            <%- include("../components/icons/ui/arrow-right", {containerClass: "w-10", svgClass: "h-full w-full fill-[rgb(40,24,24)]"}) -%>
+            <%- include("../components/Icons/UI/ArrowRight", {containerClass: "w-10", svgClass: "h-full w-full fill-[rgb(40,24,24)]"}) -%>
         </button>
     </div>
 </section>
 
-<%- include("../components/layout/footer") -%>
+<%- include("../components/Layout/Footer") -%>
 </body>
 </html>

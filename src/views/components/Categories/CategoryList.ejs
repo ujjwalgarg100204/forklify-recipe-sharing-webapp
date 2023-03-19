@@ -1,0 +1,15 @@
+<ul class="flex gap-16 justify-center pt-4">
+    <% [
+        { svg: "BreadSlice", text: "breakfast" },
+        { svg: "DrumstickBite", text: "lunch" },
+        { svg: "BowlRice", text: "dinner" },
+        { svg: "Cake", text: "dessert" },
+        { svg: "Coffee", text: "drinks" },
+        { svg: "BowlRice", text: "soups" },
+        { svg: "Burger", text: "fast Food" },
+        { svg: "Shrimp", text: "seafood" }
+    ].forEach(x => { %>
+        <%- include("./CategoryListItem", {...x}) -%>
+    <% }) %>
+
+</ul>

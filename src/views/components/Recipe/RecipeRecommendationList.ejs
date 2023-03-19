@@ -1,0 +1,10 @@
+<ul class="flex justify-center gap-12">
+    <% [
+        "pexels-ash-376464.jpg",
+        "pexels-chan-walrus-958545.jpg",
+        "pexels-chevanon-photography-323682.jpg",
+        "pexels-chokniti-khongchum-2280545.jpg"
+    ].forEach(pic => { %>
+        <%- include("./RecipeRecommendationCard", {pic}) -%>
+    <% }) %>
+</ul>
