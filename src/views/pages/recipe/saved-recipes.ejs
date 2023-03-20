@@ -1,0 +1,26 @@
+<%- include("../../components/Layout/HeadIncluder", { titleOfPage: "Recipe of Coconut-crumbled Fish" }) -%>
+
+<body class="font-body text-mehandi">
+
+<%- include("../../components/Layout/Header") -%>
+
+<main class="mt-20 space-y-8 pb-16 px-[10%]">
+    <h1 class="text-6xl font-bold font-heading tracking-tight text-center capitalize">My saved recipes</h1>
+
+    <%- include("../../components/SavedRecipes/CookbooksNames", { cookbooks: [
+    { img: "images/food/pexels-julie-aagaard-2097090.jpg", title: "fridaynight" },
+    { img: "images/food/pexels-saveurs-secretes-5410400.jpg", title: "holiday" }
+    ]}) -%>
+
+    <hr class="border-2 border-gray-100" />
+
+    <%- include("../../components/SavedRecipes/CookbooksRecipes", { cookbooks: [
+    { img: "images/food/pexels-julie-aagaard-2097090.jpg", title: "fridaynight" },
+    { img: "images/food/pexels-saveurs-secretes-5410400.jpg", title: "holiday" }
+    ]}) -%>
+</main>
+
+<%- include("../../components/Layout/Footer") -%>
+
+</body>
+</html>

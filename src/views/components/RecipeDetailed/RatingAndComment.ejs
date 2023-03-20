@@ -1,0 +1,47 @@
+<div class="flex justify-between font-body gap-32">
+    <div class="space-y-6">
+        <h1 class="font-heading font-[550] text-gray-900 text-3xl">Rating and Comments</h1>
+        <ul class="space-y-5">
+            <% comments.forEach(({ username, time, comment }) => { %>
+                <li class="flex">
+                    <div class="flex-shrink-0">
+                        <img class="mt-2 rounded-full w-8 h-8 sm:w-12 sm:h-12"
+                             src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                             alt="">
+                    </div>
+                    <div class="flex-1 rounded-lg sm:px-3 sm:py-2 leading-relaxed">
+                        <strong class="capitalize"><%= username %></strong>
+                        <span class="text-xs text-selected-mehandi ml-1"><%= time %></span>
+                        <p class="text-sm">
+                            <%= comment %>
+                        </p>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+        <button class="text-selected-mehandi underline">
+            Show all
+        </button>
+    </div>
+    <div class="w-[40%]">
+        <form action="#" class="space-y-5 w-fit">
+            <div class="flex justify-between items-center gap-28">
+                <h1 class="font-heading font-[550] text-gray-900 text-3xl">Tap to rate:</h1>
+                <ul class="flex gap-4">
+                    <% Array(5).fill("").forEach(_ => { %>
+                        <li>
+                            <%- include("../Icons/Reactions/StarRegular", { containerClass: "", svgClass: "w-6 fill-amber-400" }) -%>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+            <input
+                    type="text"
+                    class="px-5 py-3 rounded-full bg-slate-200 placeholder:text-slate-400 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600"
+                    placeholder="Leave a comment..."
+            />
+
+        </form>
+    </div>
+
+</div>

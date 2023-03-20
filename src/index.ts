@@ -15,11 +15,19 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/login", (req: Request, res: Response) => {
-	res.render("pages/login");
+	res.render("pages/recipe/login");
 });
 
 app.get("/find-recipe", (req: Request, res: Response) => {
-	res.render("pages/find-recipe");
+	res.render("pages/recipe/find-recipe");
+});
+
+app.get("/recipe", (req: Request, res: Response) => {
+	res.render("pages/recipe/recipe");
+});
+
+app.get("/saved-recipe", (req: Request, res: Response) => {
+	res.render("pages/recipe/saved-recipes");
 });
 
 app.listen(PORT, () => {

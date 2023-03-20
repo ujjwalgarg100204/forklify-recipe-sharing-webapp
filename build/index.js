@@ -12,14 +12,20 @@ const PORT = process.env.PORT;
 // apply all the configuration
 (0, config_1.default)(app);
 app.get("/", (req, res) => {
-    res.render("pages/index");
+	res.render("pages/index");
 });
 app.get("/login", (req, res) => {
-    res.render("pages/login");
+	res.render("pages/recipe/login");
 });
 app.get("/find-recipe", (req, res) => {
-    res.render("pages/find-recipe");
+	res.render("pages/recipe/find-recipe");
+});
+app.get("/recipe", (req, res) => {
+	res.render("pages/recipe/recipe");
+});
+app.get("/saved-recipe", (req, res) => {
+	res.render("pages/recipe/saved-recipes");
 });
 app.listen(PORT, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+	console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
