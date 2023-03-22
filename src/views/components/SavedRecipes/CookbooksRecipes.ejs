@@ -1,8 +1,0 @@
-<div class="space-y-16">
-    <% cookbooks.forEach(cookbook => { %>
-        <div class="space-y-8">
-            <h1 class="font-heading text-3xl font-bold">#<%= cookbook.title %></h1>
-            <%- include("../Recipe/RecipeCardList") -%>
-        </div>
-    <% }) %>
-</div>

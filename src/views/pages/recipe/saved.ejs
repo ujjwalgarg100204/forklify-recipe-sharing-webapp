@@ -1,0 +1,20 @@
+<%- include("../../components/UI/HeadIncluder", { titleOfPage: "My Saved Recipes", linkJS: "" }) -%>
+<body class="font-body text-mehandi">
+
+<%- include("../../components/Layout/Header", { user, dropdownOption: "My saved recipes" }) -%>
+
+<main class="mt-20 space-y-8 pb-16 px-[10%]">
+    <h1 class="text-6xl font-bold font-heading tracking-tight text-center capitalize">
+        My saved recipes
+    </h1>
+
+    <%- include("../../components/SavedRecipesComp/CollectionList", { collections: userCollections }) -%>
+
+    <hr class="border-2 border-gray-100" />
+
+    <%- include("../../components/SavedRecipesComp/CollectionRecipes", { collections: userCollections }) -%>
+</main>
+
+<%- include("../../components/Layout/Footer") -%>
+</body>
+</html>

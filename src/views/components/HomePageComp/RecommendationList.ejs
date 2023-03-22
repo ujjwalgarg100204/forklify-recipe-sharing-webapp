@@ -1,0 +1,14 @@
+<%# TODO: Implement a carousel of recipes%>
+<button>
+    <%- include("../Icons/UI/ArrowLeft", {containerClass: "w-10", svgClass: "h-full w-full fill-[rgb(40,24,24)]"}) -%>
+</button>
+
+<ul class="flex justify-center gap-12">
+    <% recipes.forEach(recipe => { %>
+        <%- include("./RecipeRecommendationCard", { ...recipe }) -%>
+    <% }); %>
+</ul>
+
+<button>
+    <%- include("../components/Icons/UI/ArrowRight", {containerClass: "w-10", svgClass: "h-full w-full fill-[rgb(40,24,24)]"}) -%>
+</button>

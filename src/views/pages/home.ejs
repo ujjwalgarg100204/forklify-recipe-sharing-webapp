@@ -1,0 +1,77 @@
+<%- include("../components/UI/HeadIncluder", { titleOfPage: "Forklify", linkJS: "home" }) -%>
+
+<body class="space-y-20 text-[rgb(40,54,24)] font-body">
+<header class="relative h-screen px-12 py-5 text-white" id="top">
+    <div
+            class="absolute inset-0 z-0 h-full w-full bg-cover bg-center bg-no-repeat"
+            style="
+					background-image: url('/images/background/indian-dhal-spicy-curry-bowl-spices-herbs-rustic-black-wooden-table.jpg');
+				"
+    ></div>
+
+    <%- include("../components/HomePageComp/Navbar", { user }) -%>
+
+    <h1
+            class="z-1 relative mt-32 w-2/5 rounded-lg font-heading text-7xl font-bold"
+    >
+        Stop waisting your <br />
+        <span class="text-[#F05D23]">time</span> while thinking <br />
+        what
+        <span class="text-[#F05D23]">to cook...</span>
+    </h1>
+    <p class="z-1 relative mt-6 text-3xl font-thin">
+        Find Your perfect dish and cook it <br />
+        simply and quickly!
+    </p>
+
+    <%- include("../components/UI/Button", { text: "Find Recipes", type: "b", id: "btn-find-recipe" }) -%>
+
+</header>
+
+<section class="space-y-24 text-center" id="how-it-works">
+    <h1 class="font-heading text-6xl font-bold tracking-tight">
+        How it works <span class="font-normal">?</span>
+    </h1>
+
+    <%- include("../components/HomePageComp/HowItWorksList") -%>
+
+    <%- include("../components/UI/Button", { text: "Find Recipes", type: "b", id: "btn-find-recipe2" }) -%>
+</section>
+<section
+        id="explore-recipes"
+        class="bg-cover py-20 text-center text-white "
+        style="
+				background-image: url('/images/food/chicken-skewers-with-slices-sweet-peppers-dill.jpg');
+			"
+>
+    <h1 class="font-heading text-7xl font-bold">Explore Recipes</h1>
+    <p class="mt-6 text-xl">
+        Search recipe by pasting the name of the ingredient
+    </p>
+
+    <!--    Search bar-->
+    <form
+            action="#"
+            method="GET"
+            class="relative mx-auto mt-20 flex max-w-[50%] items-center gap-x-4 rounded-[2rem] bg-white p-4 pl-7 shadow-2xl"
+    >
+        <%- include("../components/UI/SearchBar") -%>
+    </form>
+</section>
+
+<section class="text-center space-y-7 px-20">
+    <h1 class="text-7xl font-bold font-heading">Categories</h1>
+    <p class="text-xl ">A large selection of dishes for cooking</p>
+    <%- include("../components/HomePageComp/CategoriesList") -%>
+</section>
+
+<section class="text-center space-y-8">
+    <h1 class="text-7xl font-bold tracking-tight font-heading">Recommendations</h1>
+    <div class="flex gap-32 justify-center items-center pt-8">
+        <%- include("../components/HomePageComp/RecommendationList", { recipes: recommendedRecipes }) -%>
+    </div>
+</section>
+
+<%- include("../components/Layout/Footer") -%>
+</body>
+</html>

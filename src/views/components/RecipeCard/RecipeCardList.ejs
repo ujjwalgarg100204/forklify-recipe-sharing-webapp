@@ -1,0 +1,5 @@
+<div class="flex gap-8 flex-wrap">
+    <% recipes.forEach(({ recipeID, bgImage, region, time, stars, title, noOfIngredient, bookmarked }) => { %>
+        <%- include("./RecipeCard", { recipeID, bgImage, region, time, stars, title, noOfIngredient, bookmarked }) -%>
+    <% }); %>
+</div>

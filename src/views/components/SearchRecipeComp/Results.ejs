@@ -1,0 +1,29 @@
+<%- include("../../components/RecipeCard/RecipeCardList", { recipes: resultRecipes }) -%>
+
+<%# Have to use JQuery | JS only for that
+        Implement a pagination system here to let user cycle through all the recipes
+        which always shows 7 numbers in this fashion. first is always shown, last
+        is always shown, and current page, is shown, 2 behind the current page
+        2 ahead of current page, all of which are clickable, and leads to that
+        page of result
+        Page can also be changed using left right arrow buttons
+     %>
+<div role="navigation" class="flex justify-between items-center">
+    <button class="rounded-full">
+        <%- include("../Icons/UI/ArrowLeft", {containerClass: "rounded-full p-2 bg-amber-600 w-16 h-16 grid place-content-center", svgClass: "w-8 fill-white"}) -%>
+    </button>
+
+    <div role="doc-pagelist" class="flex gap-2">
+        <% Array(3).fill("").forEach((_, index) => { %>
+            <span class="rounded-full w-8 h-8 font-bold grid place-content-center <%= index === 3 ? "text-white bg-amber-600" : ""; %>">
+                <%= index + 1; %>
+            </span>
+        <% }); %>
+        <span class="w-8 h-8 font-bold grid place-content-center">...</span>
+        <span class="w-8 h-8 font-bold grid place-content-center">100</span>
+    </div>
+
+    <button class="rounded-full">
+        <%- include("../Icons/UI/ArrowRight", {containerClass: "rounded-full p-2 bg-amber-600 w-16 h-16 grid place-content-center", svgClass: "w-8 fill-white"}) -%>
+    </button>
+</div>

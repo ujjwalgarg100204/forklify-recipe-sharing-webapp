@@ -1,6 +1,7 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import config from "./config/config";
+import IndexRouter from "./routes";
 
 dotenv.config();
 
@@ -10,25 +11,8 @@ const PORT = process.env.PORT;
 // apply all the configuration
 config(app);
 
-app.get("/", (req: Request, res: Response) => {
-	res.render("pages/index");
-});
-
-app.get("/login", (req: Request, res: Response) => {
-	res.render("pages/recipe/login");
-});
-
-app.get("/find-recipe", (req: Request, res: Response) => {
-	res.render("pages/recipe/find-recipe");
-});
-
-app.get("/recipe", (req: Request, res: Response) => {
-	res.render("pages/recipe/recipe");
-});
-
-app.get("/saved-recipe", (req: Request, res: Response) => {
-	res.render("pages/recipe/saved-recipes");
-});
+// import all routes
+app.use("/", IndexRouter);
 
 app.listen(PORT, () => {
 	console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);

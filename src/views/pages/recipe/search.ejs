@@ -1,0 +1,34 @@
+<%- include("../../components/UI/HeadIncluder", {titleOfPage: "Find Best RecipeCard", linkJS: "" }) -%>
+<body class="font-body">
+<%- include("../../components/Layout/Header", { user, dropdownOption: "Search Recipes" }) -%>
+
+<form action="#" class="space-y-8">
+    <div class="flex flex-col items-center gap-8 relative font-heading z-1 text-white text-center py-28 before:bg-[url('/images/food/pexels-shantanu-pal-2679501.jpg')] before:absolute before:inset-0 before:-z-1 before:h-full before:w-full before:bg-cover before:bg-center before:brightness-50">
+        <h1 class="font-bold tracking-tighter text-7xl relative z-1">
+            Find best recipe
+        </h1>
+        <p class="text-lg relative z-1">
+            Search the best recipe by recipe filter
+        </p>
+        <div class="relative z-1 min-w-[50%]">
+            <%- include("../../components/SearchBar") -%>
+        </div>
+    </div>
+
+    <!-- Current approach, I'll add a custom attribute which shows either the attribute is selected or not, and I'll get those attributes from JS, then I'll convert the url in such a way, and load that -->
+    <!--FilterList.ejs-->
+    <div class="px-[14%] space-y-12">
+        <%- include("../../components/SearchRecipeComp/FilterList") -%>
+        <%- include("../../components/UI/Button", { id: "", btnClass: "", type: "button", text: "Show 25 results" }) -%>
+    </div>
+</form>
+
+<hr class="h-[2px] bg-amber-400 my-10" />
+
+<div id="search-results" class="px-[14%] space-y-32 pb-32">
+    <%- include("../../components/SearchRecipeComp/Results") -%>
+</div>
+
+<%- include("../../components/Layout/Footer") -%>
+</body>
+</html>

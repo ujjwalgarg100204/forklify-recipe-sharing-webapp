@@ -1,42 +1,27 @@
-<%- include("../../components/Layout/HeadIncluder", { titleOfPage: "Recipe of Coconut-crumbled Fish" }) -%>
-
+<%- include("../../components/Layout/HeadIncluder", { titleOfPage: "<%= recipe.title; %>" }) -%>
 <body>
-
-<%- include("../../components/Layout/Header") -%>
+<%- include("../../components/Layout/Header", { user, dropdownOption: "Recipe" }) -%>
 
 <main class="space-y-16 mb-28">
     <div class="bg-cover bg-center flex flex-col justify-between px-[10%] py-16 gap-28"
          style="background-image: url('images/food/pasta.jpg')">
         <%- include("../../components/Icons/UI/ArrowLeft", { containerClass: "hover:bg-[rgba(255,255,255,0.5)] rounded-full p-2 w-fit", svgClass: "w-8 stroke-2" }) -%>
-        <%- include("../../components/RecipeDetailed/RecipeCard", {
-        title: "Coconut-crumbled fish",
-        stars: 4,
-        time: "1 hour 25 minutes",
-        description: "Lorem ipsum dolor sit amet, consectetur adispicing elit. Aenan commodo ligula eget dolor. Aenan massa."
+        <%- include("../../components/RecipePageComp/HeadingCard", {
+        title: recipe.title,
+        stars: recipe.stars,
+        cookTime: recipe.cookTime,
+        desc: recipe.desc
         }) -%>
     </div>
 
     <section class="px-[10%] space-y-12">
-        <%- include("../../components/RecipeDetailed/Tags", { tags: [
-        "under 30 min",
-        "lunch",
-        "sugar free",
-        "chinese"
-        ]}) -%>
+        <%- include("../../components/RecipePageComp/Tags", { tags: recipe.tags}) -%>
 
         <div class="flex justify-between">
             <div class="flex flex-col gap-12">
-                <%- include("../../components/RecipeDetailed/Ingredient", { ingredients: [
-                { amt: "500g", desc: "desiccated coconut" },
-                { amt: "200g", desc: "plain flour" },
-                { amt: "1 egg", desc: "beaten" },
-                { amt: "50ml", desc: "vegetable oil" },
-                { amt: "1/2", desc: "cucumber, sliced" },
-                { amt: "70g", desc: "mayonnaise" },
-                { amt: "30g", desc: "sweet chilli sauce" }
-                ]}) -%>
+                <%- include("../../components/RecipePageComp/Ingredient", { ingredients: recipe.ingredients}) -%>
 
-                <%- include("../../components/RecipeDetailed/NutritionalPerServing", {
+                <%- include("../../components/RecipePageComp/NutritionalPerServing", {
                 calories: "98",
                 protein: "69g",
                 carb: "37g",
@@ -44,7 +29,7 @@
                 }) -%>
             </div>
 
-            <%- include("../../components/RecipeDetailed/Directions", { steps: [
+            <%- include("../../components/RecipePageComp/Directions", { steps: [
             "In a large bowl, whish together the mayonnaise and sweet chilli sauce. Add the lettuce and cucumber, toss through and set aside.",
             "Mix the coconut and flour together on a plate. Dip the fish fillets into the beaten egg, then into the coconut-flour mixture to coat",
             "Heat the oil in a frying pan until very hot, then add the fish and fry for 3-4 mins on each side until cooked through. Serve with the salad and lime wedges."
@@ -54,7 +39,7 @@
 
     <hr class="border-2 border-gray-100" />
     <section class="px-[10%] space-y-8">
-        <%- include("../../components/RecipeDetailed/RatingAndComment", { comments: [
+        <%- include("../../components/RecipePageComp/RatingAndComment", { comments: [
         { username: "marius", time: "1 month ago", comment: "This recipe surpassed what we had in restaurant. Love love love!" },
         { username: "linda", time: "1 month ago", comment: "Very tasty recipe!!!! I will still cook this dish" },
         { username: "jessica", time: "2 mongth ago", comment: "This is so delicious recipe, cooked for the first time and was surprised by the result" }
@@ -64,11 +49,10 @@
 
     <section class="px-[10%] space-y-12">
         <h1 class="font-heading font-[550] text-gray-900 text-3xl">More interesting recipes:</h1>
-        <%- include("../../components/Recipe/RecipeCardList") -%>
+        <%- include("../../components/RecipeCard/RecipeCardList") -%>
     </section>
 </main>
 
 <%- include("../../components/Layout/Footer") -%>
-
 </body>
 </html>

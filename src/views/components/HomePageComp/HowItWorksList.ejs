@@ -1,0 +1,23 @@
+<ul class="flex justify-evenly">
+    <% [
+        {
+            title: "Open your fridge!",
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium consequuntur dignissimos dolor doloribus exercitationem necessitatibus nisi odit repudiandae. Atque dolore esse quidem reiciendis velit veritatis! Adipisci earum fuga quisquam ut."
+        },
+        {
+            title: "Choose a recipe",
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium consequuntur dignissimos dolor doloribus exercitationem necessitatibus nisi odit repudiandae. Atque dolore esse quidem reiciendis velit veritatis! Adipisci earum fuga quisquam ut."
+        },
+        {
+            title: "Enjoy your dish",
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium consequuntur dignissimos dolor doloribus exercitationem necessitatibus nisi odit repudiandae. Atque dolore esse quidem reiciendis velit veritatis! Adipisci earum fuga quisquam ut."
+        }
+    ].forEach(({ title, text }) => { %>
+        <li class="relative max-w-xs space-y-4 before:absolute before:inset-0 before:h-full before:w-full before:-translate-y-32 before:text-[15vw] before:font-bold before:text-[rgba(0,0,0,0.05)] before:content-[counter(li,decimal-leading-zero)]"
+            style="counter-increment: li"
+        >
+            <h3 class="text-2xl font-bold font-heading"><%= title; %></h3>
+            <p><%= text %></p>
+        </li>
+    <% }) %>
+</ul>

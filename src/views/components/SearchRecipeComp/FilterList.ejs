@@ -1,0 +1,22 @@
+<div class="grid grid-cols-[1fr_2fr_2fr_2fr] gap-x-8  text-selected-mehandi">
+    <% [
+        {
+            title: "time",
+            filters: ["under 15 min", "under 30 min", "under 60 min"]
+        },
+        {
+            title: "dish type",
+            filters: ["breakfast", "brunch", "snack", "appetizers", "lunch", "drinks", "dessert", "dinner"]
+        },
+        {
+            title: "diet",
+            filters: ["vegans", "glutenfree", "sugarfree", "macrobiotics", "lactosfree"]
+        },
+        {
+            title: "regions",
+            filters: ["japanese", "chinese", "vietnamese", "russian", "korean", "indian", "indonesian", "pakistan", "turkish"]
+        }
+    ].forEach(section => { %>
+        <%- include("./FilterItem", { title: section.title, filters: section.filters }) -%>
+    <% }); %>
+</div>
