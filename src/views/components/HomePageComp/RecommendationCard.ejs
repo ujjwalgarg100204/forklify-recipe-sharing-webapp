@@ -8,14 +8,14 @@
                 style="text-shadow: 1px 1px 3px #000"
         >
             <%- include("../Icons/Reactions/Heart", { containerClass: "h-5 w-5", svgClass: "h-full w-full fill-white drop-shadow-xl" }) -%>
-            <%= hearts; %>
+            <%= bookmarkCount; %>
         </div>
         <div
                 class="flex justify-start gap-1 items-center rounded-full p-1 px-3 bg-[rgba(0,0,0,0.3)]"
                 style="text-shadow: 1px 1px 3px #000"
         >
             <%- include("../Icons/UI/Clock", { containerClass: "h-5 w-5", svgClass: "h-full w-full fill-white drop-shadow-xl" }) -%>
-            <%= cookTime %>
+            <%= totalTime %>
         </div>
     </div>
     <p><%= desc %></p>

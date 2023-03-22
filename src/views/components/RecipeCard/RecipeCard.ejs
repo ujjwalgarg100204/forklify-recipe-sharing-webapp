@@ -1,22 +1,21 @@
-<a class="w-80 h-fit rounded-xl shadow-xl pb-4" href="/r/<%= recipeID; %>">
+<a class="w-80 h-fit rounded-xl shadow-xl pb-4" href="/r/<%= id; %>">
     <div
             class="bg-cover bg-center flex flex-col justify-between p-6 h-80 rounded-tl-xl rounded-tr-xl"
-            style="background-image: url('<%= bgImage; %>')"
+            style="background-image: url('<%= image; %>')"
     >
         <div class="w-fit px-4 py-1 border border-selected-mehandi rounded-full text-white bg-selected-mehandi capitalize">
             <%= region; %>
         </div>
         <p class="w-fit rounded-full font-bold px-4 py-2 bg-[rgba(0,0,0,0.1)] text-white lowercase">
             <%# Output the time the correct way, if its in hours only then add hours in text %>
-            <% if (time > 3600) { %>
-                <%= Math.floor(time / 3600) %> hours <%= Math.round((time % 3600) / 60) %>
+            <% if (totalTime > 3600) { %>
+                <%= Math.floor(totalTime / 3600) %> hours <%= Math.round((totalTime % 3600) / 60) %>
             <% } else { %>
-                <%= Math.round(time / 60) %> mins
+                <%= Math.round(totalTime / 60) %> mins
             <% } %>
         </p>
     </div>
     <div class="p-4 px-6 space-y-2">
-
         <!-- Rating Star div -->
         <div class="flex justify-start gap-2">
             <!-- Filled Stars-->

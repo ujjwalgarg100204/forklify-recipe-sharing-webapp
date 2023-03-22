@@ -1,7 +1,5 @@
 <%- include("../components/UI/HeadIncluder", {titleOfPage: "Login", linkJS: ""}) -%>
-
 <body class="font-heading space-y-20 bg-[#e6e6e6]">
-
 <%- include("../components/Layout/Header", { user, dropdownOption: "Login" }) -%>
 
 <!-- Login Component -->
@@ -23,7 +21,7 @@
             <a href="/auth/github"
                class="flex justify-between text-white p-3 px-7 rounded-full items-center drop-shadow-sm bg-black"
             >
-                <img class="w-10 p-0.5"
+                <img class="w-10 m-0.5 bg-white rounded-lg"
                      src="/images/icons/socials/github.png"
                      alt="github"
                 />
@@ -45,6 +43,5 @@
 </main>
 
 <%- include("../components/Layout/Footer") -%>
-
 </body>
 </html>

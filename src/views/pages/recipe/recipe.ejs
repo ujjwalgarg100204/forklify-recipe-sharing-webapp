@@ -4,46 +4,27 @@
 
 <main class="space-y-16 mb-28">
     <div class="bg-cover bg-center flex flex-col justify-between px-[10%] py-16 gap-28"
-         style="background-image: url('images/food/pasta.jpg')">
+         style="background-image: url('<%= recipe.image %>')">
         <%- include("../../components/Icons/UI/ArrowLeft", { containerClass: "hover:bg-[rgba(255,255,255,0.5)] rounded-full p-2 w-fit", svgClass: "w-8 stroke-2" }) -%>
-        <%- include("../../components/RecipePageComp/HeadingCard", {
-        title: recipe.title,
-        stars: recipe.stars,
-        cookTime: recipe.cookTime,
-        desc: recipe.desc
-        }) -%>
+        <%- include("../../components/RecipePageComp/HeadingCard", { ...recipe }) -%>
     </div>
 
     <section class="px-[10%] space-y-12">
-        <%- include("../../components/RecipePageComp/Tags", { tags: recipe.tags}) -%>
+        <%- include("../../components/RecipePageComp/Tags", { ...recipe }) -%>
 
         <div class="flex justify-between">
             <div class="flex flex-col gap-12">
-                <%- include("../../components/RecipePageComp/Ingredient", { ingredients: recipe.ingredients}) -%>
+                <%- include("../../components/RecipePageComp/Ingredient", { ...recipe }) -%>
 
-                <%- include("../../components/RecipePageComp/NutritionalPerServing", {
-                calories: "98",
-                protein: "69g",
-                carb: "37g",
-                fat: "20g"
-                }) -%>
+                <%- include("../../components/RecipePageComp/NutritionalPerServing", { ...recipe.nutrition }) -%>
             </div>
-
-            <%- include("../../components/RecipePageComp/Directions", { steps: [
-            "In a large bowl, whish together the mayonnaise and sweet chilli sauce. Add the lettuce and cucumber, toss through and set aside.",
-            "Mix the coconut and flour together on a plate. Dip the fish fillets into the beaten egg, then into the coconut-flour mixture to coat",
-            "Heat the oil in a frying pan until very hot, then add the fish and fry for 3-4 mins on each side until cooked through. Serve with the salad and lime wedges."
-            ]}) -%>
+            <%- include("../../components/RecipePageComp/Directions", { ...recipe }) -%>
         </div>
     </section>
 
     <hr class="border-2 border-gray-100" />
     <section class="px-[10%] space-y-8">
-        <%- include("../../components/RecipePageComp/RatingAndComment", { comments: [
-        { username: "marius", time: "1 month ago", comment: "This recipe surpassed what we had in restaurant. Love love love!" },
-        { username: "linda", time: "1 month ago", comment: "Very tasty recipe!!!! I will still cook this dish" },
-        { username: "jessica", time: "2 mongth ago", comment: "This is so delicious recipe, cooked for the first time and was surprised by the result" }
-        ]}) -%>
+        <%- include("../../components/RecipePageComp/RatingAndComment", { ...recipe }) -%>
     </section>
     <hr class="border-2 border-gray-100" />
 

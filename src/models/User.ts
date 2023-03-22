@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import mongoose, { Model, Schema, Types } from "mongoose";
 
 export enum OauthProvider {
 	github = "github",
@@ -6,7 +6,8 @@ export enum OauthProvider {
 	linkedin = "linkedin",
 }
 
-export interface IUser extends Document {
+export interface IUser {
+	_id: Types.ObjectId;
 	username: string;
 	oauthID: string;
 	oauthProvider: OauthProvider;
@@ -17,10 +18,10 @@ export interface IUser extends Document {
 		avatar?: string;
 		location?: string;
 	};
-	recipes?: Types.ObjectId[];
-	bookmarkedRecipes?: Types.ObjectId[];
-	mealPlans?: Types.ObjectId[];
-	shoppingLists?: Types.ObjectId[];
+	recipes: Types.ObjectId[];
+	bookmarkedRecipes: Types.ObjectId[];
+	recipeCollections: Types.ObjectId[];
+	shoppingLists: Types.ObjectId[];
 }
 
 const userSchema = new Schema<IUser>({
@@ -38,10 +39,22 @@ const userSchema = new Schema<IUser>({
 		avatar: String,
 		location: String,
 	},
-	recipes: [{ type: Schema.Types.ObjectId, ref: "RecipeCard" }],
-	bookmarkedRecipes: [{ type: Schema.Types.ObjectId, ref: "RecipeCard" }],
-	mealPlans: [{ type: Schema.Types.ObjectId, ref: "MealPlan" }],
-	shoppingLists: [{ type: Schema.Types.ObjectId, ref: "ShoppingList" }],
+	recipes: {
+		type: [{ type: Schema.Types.ObjectId, ref: "RecipeCard" }],
+		default: [],
+	},
+	bookmarkedRecipes: {
+		type: [{ type: Schema.Types.ObjectId, ref: "RecipeCard" }],
+		default: [],
+	},
+	recipeCollections: {
+		type: [{ type: Schema.Types.ObjectId, ref: "RecipeCollection" }],
+		default: [],
+	},
+	shoppingLists: {
+		type: [{ type: Schema.Types.ObjectId, ref: "ShoppingList" }],
+		default: [],
+	},
 });
 
 const UserModel: Model<IUser> = mongoose.model<IUser>("User", userSchema);

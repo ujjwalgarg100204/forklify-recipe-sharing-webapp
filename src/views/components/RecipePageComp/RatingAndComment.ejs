@@ -4,7 +4,7 @@
             Rating and Comments
         </h1>
         <ul class="space-y-5">
-            <% comments.forEach(({ username, userAvatar, createdAt, comment }) => { %>
+            <% reviews.forEach(({ username, userAvatar, createdAt, review }) => { %>
                 <li class="flex">
                     <div class="flex-shrink-0">
                         <img class="mt-2 rounded-full w-8 h-8 sm:w-12 sm:h-12"
@@ -20,7 +20,7 @@
                             <%= createdAt; %>
                     </span>
                         <p class="text-sm">
-                            <%= comment; %>
+                            <%= review; %>
                         </p>
                     </div>
                 </li>

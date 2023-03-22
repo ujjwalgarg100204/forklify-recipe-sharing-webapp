@@ -11,7 +11,7 @@
             Search the best recipe by recipe filter
         </p>
         <div class="relative z-1 min-w-[50%]">
-            <%- include("../../components/SearchBar") -%>
+            <%- include("../../components/UI/SearchBar") -%>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
 <hr class="h-[2px] bg-amber-400 my-10" />
 
 <div id="search-results" class="px-[14%] space-y-32 pb-32">
-    <%- include("../../components/SearchRecipeComp/Results") -%>
+    <%- include("../../components/SearchRecipeComp/Results", { resultRecipes }) -%>
 </div>
 
 <%- include("../../components/Layout/Footer") -%>

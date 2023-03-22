@@ -1,6 +1,7 @@
-import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import mongoose, { Model, Schema, Types } from "mongoose";
 
-export interface IShoppingList extends Document {
+export interface IShoppingList {
+	_id: Types.ObjectId;
 	name: string;
 	author: Types.ObjectId;
 	items?: { name: string; quantity: number }[];

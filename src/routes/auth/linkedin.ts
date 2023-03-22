@@ -9,9 +9,7 @@ LinkedInRouter.get(
 	"/redirect",
 	passport.authenticate("linkedin"),
 	(req, res) => {
-		// TODO: Change the path here
-		// res.redirect("/profile");
-		res.send(req.user);
+		res.redirect("/");
 	}
 );
 

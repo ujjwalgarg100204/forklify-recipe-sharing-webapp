@@ -1,9 +1,11 @@
-import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import mongoose, { Model, Schema, Types } from "mongoose";
 
-export interface IRecipeCollection extends Document {
+export interface IRecipeCollection {
+	_id: Types.ObjectId;
 	title: string;
 	author: Types.ObjectId;
-	recipes?: Types.ObjectId[];
+	image: string;
+	recipes: Types.ObjectId[];
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -11,7 +13,11 @@ export interface IRecipeCollection extends Document {
 const recipeCollectionSchema = new mongoose.Schema<IRecipeCollection>({
 	title: { type: String, required: true },
 	author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-	recipes: [{ type: Schema.Types.ObjectId, ref: "Recipes" }],
+	image: { type: String, required: true },
+	recipes: {
+		type: [{ type: Schema.Types.ObjectId, ref: "Recipes" }],
+		default: [],
+	},
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
 });

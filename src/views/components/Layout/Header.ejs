@@ -4,9 +4,15 @@
     </div>
 
     <ul class="flex gap-14 justify-center items-center text-lg">
-        <li>About us</li>
-        <li>Find recipes</li>
-        <li>Popular recipes</li>
+        <li>
+            <a href="/about">About us</a>
+        </li>
+        <li>
+            <a href="/r/search">Find recipes</a>
+        </li>
+        <li>
+            <a href="/r/popular">Popular recipes</a>
+        </li>
         <% if (user) { %>
             <%- include("../UI/Dropdown", { selected: dropdownOption }) -%>
         <% } else { %>

@@ -9,9 +9,7 @@ GoogleRouter.get(
 );
 
 GoogleRouter.get("/redirect", passport.authenticate("google"), (req, res) => {
-	// TODO: Change the path here
-	// res.redirect("/profile");
-	res.send(req.user);
+	res.redirect("/");
 });
 
 export default GoogleRouter;

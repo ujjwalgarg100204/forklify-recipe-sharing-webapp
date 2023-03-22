@@ -12,7 +12,7 @@ AuthRoutes.use("/linkedin", LinkedInRouter);
 AuthRoutes.get("/login", (req, res) => {
 	// if already logged in, then just go to dashboard.ejs
 	req.user
-		? res.render("pages/user/dashboard", { user: req.user })
+		? res.redirect("/")
 		: res.render("pages/login", { user: req.user });
 });
 

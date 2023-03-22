@@ -1,12 +1,9 @@
-<%- include("../../components/UI/HeadIncluder", {titleOfPage: "Login"}) -%>
-
+<%- include("../../components/UI/HeadIncluder", { titleOfPage: "Login", linkJS: "" }) -%>
 <body class="font-heading space-y-20 bg-[#e6e6e6]">
-
-<%- include("../../components/Layout/Header") -%>
+<%- include("../../components/Layout/Header", { user, dropdownOption: "Dashboard" }) -%>
 
 Dashboard
 
 <%- include("../../components/Layout/Footer") -%>
-
 </body>
 </html>

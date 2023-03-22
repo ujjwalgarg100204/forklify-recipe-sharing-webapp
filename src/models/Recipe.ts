@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import mongoose, { Model, Schema, Types } from "mongoose";
 
 export enum RecipeCategories {
 	breakfast = "breakfast",
@@ -11,7 +11,8 @@ export enum RecipeCategories {
 	dinner = "dinner",
 }
 
-export interface IRecipe extends Document {
+export interface IRecipe {
+	_id: Types.ObjectId;
 	title: string;
 	author: Types.ObjectId;
 	desc: string;
@@ -38,10 +39,11 @@ export interface IRecipe extends Document {
 		carb?: number;
 		fat?: number;
 	};
-	reviews?: {
+	bookmarkCount: number;
+	reviews: {
 		user: Types.ObjectId;
-		text: String;
-		date: Date;
+		review: String;
+		createdAt: Date;
 		rating: number;
 	}[];
 	createdAt: Date;
@@ -85,14 +87,22 @@ const recipeSchema: Schema = new Schema<IRecipe>({
 	prepTime: { type: Number, required: true, min: 1 },
 	cookTime: { type: Number, required: true, min: 1 },
 	notes: String,
-	reviews: [
-		{
-			user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-			text: { type: String, required: true },
-			date: { type: Date, default: Date.now },
-			rating: { type: Number, required: true },
-		},
-	],
+	bookmarkCount: Number,
+	reviews: {
+		type: [
+			{
+				user: {
+					type: Schema.Types.ObjectId,
+					ref: "User",
+					required: true,
+				},
+				review: { type: String, required: true },
+				createdAt: { type: Date, default: Date.now },
+				rating: { type: Number, required: true },
+			},
+		],
+		default: [],
+	},
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
 });
