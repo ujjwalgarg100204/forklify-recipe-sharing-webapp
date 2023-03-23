@@ -5,8 +5,8 @@ import {
 } from "passport-linkedin-oauth2";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import {
-	Strategy as GoogleStrategy,
 	Profile as GoogleProfile,
+	Strategy as GoogleStrategy,
 	VerifyCallback,
 } from "passport-google-oauth20";
 import UserModel, { OauthProvider } from "../models/User";
@@ -24,6 +24,7 @@ export default function configPassport(): void {
 
 	const {
 		PORT,
+		ENV,
 		LINKEDIN_CLIENT_ID,
 		LINKEDIN_CLIENT_SECRET,
 		GOOGLE_CLIENT_ID,
@@ -32,12 +33,16 @@ export default function configPassport(): void {
 		GITHUB_CLIENT_SECRET,
 	} = process.env;
 
+	const LINKEDIN_CALLBACK_URL =
+		ENV === "development"
+			? `http://localhost:${PORT}/auth/linkedin/redirect`
+			: "https://forklify.onrender.com/auth/linkedin/redirect";
 	passport.use(
 		new LinkedInStrategy(
 			{
 				clientID: LINKEDIN_CLIENT_ID,
 				clientSecret: LINKEDIN_CLIENT_SECRET,
-				callbackURL: `http://localhost:${PORT}/auth/linkedin/redirect`,
+				callbackURL: LINKEDIN_CALLBACK_URL,
 				scope: ["r_emailaddress", "r_liteprofile"],
 				// @ts-ignore
 				state: true,
@@ -76,12 +81,16 @@ export default function configPassport(): void {
 		)
 	);
 
+	const GITHUB_CALLBACK_URL =
+		ENV === "development"
+			? `http://localhost:${PORT}/auth/github/redirect`
+			: "https://forklify.onrender.com/auth/github/redirect";
 	passport.use(
 		new GitHubStrategy(
 			{
 				clientID: GITHUB_CLIENT_ID,
 				clientSecret: GITHUB_CLIENT_SECRET,
-				callbackURL: `http://localhost:${PORT}/auth/github/redirect`,
+				callbackURL: GITHUB_CALLBACK_URL,
 			},
 			async (
 				accessToken: string,
@@ -112,12 +121,16 @@ export default function configPassport(): void {
 		)
 	);
 
+	const GOOGLE_CALLBACK_URL =
+		ENV === "development"
+			? `http://localhost:${PORT}/auth/google/redirect`
+			: "https://forklify.onrender.com/auth/google/redirect";
 	passport.use(
 		new GoogleStrategy(
 			{
 				clientID: GOOGLE_CLIENT_ID,
 				clientSecret: GOOGLE_CLIENT_SECRET,
-				callbackURL: `http://localhost:${PORT}/auth/google/redirect`,
+				callbackURL: GOOGLE_CALLBACK_URL,
 			},
 			async (
 				accessToken,
