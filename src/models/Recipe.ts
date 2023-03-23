@@ -108,7 +108,7 @@ const recipeSchema: Schema = new Schema<IRecipe>({
 });
 
 const RecipeModel: Model<IRecipe> = mongoose.model<IRecipe>(
-	"RecipeCard",
+	"Recipe",
 	recipeSchema
 );
 

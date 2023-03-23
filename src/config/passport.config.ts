@@ -5,12 +5,12 @@ import {
 } from "passport-linkedin-oauth2";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import {
-	Profile as GoogleProfile,
 	Strategy as GoogleStrategy,
+	Profile as GoogleProfile,
 	VerifyCallback,
 } from "passport-google-oauth20";
 import UserModel, { OauthProvider } from "../models/User";
-import GitHubProfile from "../types/custom/github-profile";
+import { GitHubProfile } from "../types/custom";
 
 export default function configPassport(): void {
 	passport.serializeUser((user, done) => {
@@ -23,6 +23,7 @@ export default function configPassport(): void {
 	});
 
 	const {
+		PORT,
 		LINKEDIN_CLIENT_ID,
 		LINKEDIN_CLIENT_SECRET,
 		GOOGLE_CLIENT_ID,
@@ -36,7 +37,7 @@ export default function configPassport(): void {
 			{
 				clientID: LINKEDIN_CLIENT_ID,
 				clientSecret: LINKEDIN_CLIENT_SECRET,
-				callbackURL: "http://localhost:4000/auth/linkedin/redirect",
+				callbackURL: `http://localhost:${PORT}/auth/linkedin/redirect`,
 				scope: ["r_emailaddress", "r_liteprofile"],
 				// @ts-ignore
 				state: true,
@@ -61,10 +62,12 @@ export default function configPassport(): void {
 						username,
 						oauthID: profile.id,
 						oauthProvider: OauthProvider.linkedin,
-						email: profile._json.emails[0].value,
 						profile: {
 							name: profile.displayName,
-							avatar: profile.photos[0].value,
+							avatar:
+								profile.photos.length > 0
+									? profile.photos[0].value
+									: "",
 						},
 					}).save();
 					done(null, newUser);
@@ -78,7 +81,7 @@ export default function configPassport(): void {
 			{
 				clientID: GITHUB_CLIENT_ID,
 				clientSecret: GITHUB_CLIENT_SECRET,
-				callbackURL: "http://localhost:4000/auth/github/redirect",
+				callbackURL: `http://localhost:${PORT}/auth/github/redirect`,
 			},
 			async (
 				accessToken: string,
@@ -114,7 +117,7 @@ export default function configPassport(): void {
 			{
 				clientID: GOOGLE_CLIENT_ID,
 				clientSecret: GOOGLE_CLIENT_SECRET,
-				callbackURL: "http://localhost:4000/auth/google/redirect",
+				callbackURL: `http://localhost:${PORT}/auth/google/redirect`,
 			},
 			async (
 				accessToken,

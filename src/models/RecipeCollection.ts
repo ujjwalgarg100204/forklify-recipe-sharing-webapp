@@ -24,7 +24,7 @@ const recipeCollectionSchema = new mongoose.Schema<IRecipeCollection>({
 
 const RecipeCollectionModel: Model<IRecipeCollection> =
 	mongoose.model<IRecipeCollection>(
-		"RecipeCard Collections",
+		"RecipeCollection",
 		recipeCollectionSchema
 	);
 

@@ -15,9 +15,15 @@ function config(app: Express): void {
 	app.use(express.urlencoded({ extended: true }));
 
 	// config mongoose
+	const MONGO_URL: string = (
+		process.env.ENV === "development"
+			? process.env.MONGO_LOCAL_URL
+			: process.env.MONGO_REMOTE_URL
+	) as string;
 	const clientP = mongoose
-		.connect(process.env.MONGO_LOCAL_URL as string, {
+		.connect(MONGO_URL, {
 			serverSelectionTimeoutMS: 2000,
+			dbName: "forklify",
 		})
 		.then(m => m.connection.getClient());
 

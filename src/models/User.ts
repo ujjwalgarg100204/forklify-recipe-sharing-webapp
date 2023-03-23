@@ -32,7 +32,7 @@ const userSchema = new Schema<IUser>({
 		enum: Object.values(OauthProvider),
 		required: true,
 	},
-	email: { type: String, unique: true },
+	email: String,
 	profile: {
 		name: { type: String, required: true },
 		bio: String,

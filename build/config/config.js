@@ -17,9 +17,13 @@ function config(app) {
     app.use(express_1.default.json());
     app.use(express_1.default.urlencoded({ extended: true }));
     // config mongoose
+    const MONGO_URL = (process.env.ENV === "development"
+        ? process.env.MONGO_LOCAL_URL
+        : process.env.MONGO_REMOTE_URL);
     const clientP = mongoose_1.default
-        .connect(process.env.MONGO_LOCAL_URL, {
+        .connect(MONGO_URL, {
         serverSelectionTimeoutMS: 2000,
+        dbName: "forklify",
     })
         .then(m => m.connection.getClient());
     // passport-session setup & cookies setup
