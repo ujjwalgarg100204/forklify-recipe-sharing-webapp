@@ -13,7 +13,7 @@
     "start": "node build/index.js",
     "start:dev": "concurrently \"npm run ts:dev\" \"npm run tailwind:dev\" \"npm run nodemon:firefox\"",
     "start:dev:chrome": "concurrently \"npm run ts:dev\" \"npm run tailwind:dev\" \"npm run nodemon:chrome\"",
-    "build": "npm run ts:build && npm run tailwind:build"
+    "build": "npm install && npm run ts:build && npm run tailwind:build"
   },
   "keywords": [],
   "author": "",
