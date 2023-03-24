@@ -135,6 +135,7 @@
   "exclude": [
     "node_modules",
     "build",
+    "./src/public",
     "tailwind.config.js",
     "postcss.config.js"
   ]

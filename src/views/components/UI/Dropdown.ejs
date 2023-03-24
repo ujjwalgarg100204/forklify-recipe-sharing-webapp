@@ -2,7 +2,7 @@
     <span class="px-4"><%= selected; %></span>
     <%- include("../Icons/UI/ArrowDown", { containerClass: "p-1 hover:bg-[hsl(73,42%,22%)] rounded-full", svgClass: "w-5 h-5" }) -%>
 
-    <div class="absolute hidden group-focus:block top-full min-w-full w-max bg-mehandi shadow-md mt-1 rounded-2xl p-3">
+    <div class="absolute hidden group-hover:block top-full min-w-full w-max bg-mehandi shadow-md mt-1 rounded-2xl p-3 hover:block">
         <ul class="text-center rounded">
             <% [
                 { text: "My good food", link: "/" },
@@ -10,7 +10,7 @@
                 { text: "My saved recipes", link: "/u/saved" },
                 { text: "Sign Out", link: "/auth/logout" }
             ].filter(option => option.text !== selected).forEach(option => { %>
-                <li class="px-4 py-2 hover:bg-[hsl(73,42%,22%)] border-b border-b-gray-500 last:border-0 rounded-t-md">
+                <li class="px-4 py-2 border-b border-b-gray-500 rounded-t-md last:border-0 hover:bg-[hsl(73,42%,22%)] hover:block">
                     <a href="<%= option.link %>">
                         <%= option.text %>
                     </a>

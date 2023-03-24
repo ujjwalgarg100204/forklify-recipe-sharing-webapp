@@ -16,7 +16,7 @@
             <div class="flex flex-col gap-12">
                 <%- include("../../components/RecipePageComp/Ingredient", { ...recipe }) -%>
 
-                <%- include("../../components/RecipePageComp/NutritionalPerServing", { ...recipe.nutrition }) -%>
+                <%- include("../../components/RecipePageComp/NutritionalPerServing", { recipe.nutrition ? ...recipe.nutrition : ...{ calories: 0, protien: 0, carb: 0, fat: 0 } }) -%>
             </div>
             <%- include("../../components/RecipePageComp/Directions", { ...recipe }) -%>
         </div>

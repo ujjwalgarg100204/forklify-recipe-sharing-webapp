@@ -1,0 +1,27 @@
+<div class="font-body backdrop-blur-2xl bg-[rgba(255,255,255,0,1)] border-2 border-white rounded-2xl px-6 py-5 w-2/5 shadow-inner space-y-4 ">
+    <div class="flex justify-between font-heading text-gray-800 items-center gap-8">
+        <input class="font-heading text-4xl w-full" type="text" placeholder="Title of Recipe" name="title" />
+
+        <!-- Rating Star div -->
+        <div class="flex justify-start gap-2">
+            <!-- Unfilled stars-->
+            <% Array(5).fill("").forEach((_, i) => { %>
+                <label class="group" for="star-<%= i + 1; %>">
+                    <%- include("../Icons/Reactions/StarRegular", {containerClass: "", svgClass: "w-6 fill-amber-600 group-hover:scale-150 transition-all"}) -%>
+                </label>
+                <input class="hidden" id="star-<%= i + 1; %>" type="radio" name="stars" value="<%= i + 1; %>" />
+            <% }); %>
+        </div>
+    </div>
+    <div class="flex justify-start items-center gap-3">
+        <%- include("../Icons/UI/Clock", { containerClass: "", svgClass: "w-5 fill-selected-mehandi stroke-2" }) -%>
+
+        <input type="number" class="text-selected-mehandi w-20" name="timeNum" min="0.1" step="0.1" />
+        <select class="text-selected-mehandi rounded-full p-2 pr-0 bg-white" name="timeUnit" id="timeUnit">
+            <option value="hours">Hours</option>
+            <option value="min" selected>Min</option>
+        </select>
+
+    </div>
+    <input class="text-slate-800 focus:outline-none focus:ring focus:ring-amber-500" type="text" name="desc" placeholder="Description of your recipe" />
+</div>

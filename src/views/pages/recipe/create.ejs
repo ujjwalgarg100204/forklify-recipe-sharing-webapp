@@ -1,0 +1,33 @@
+<%- include("../../components/UI/HeadIncluder", { titleOfPage: "Create Recipe", linkJS: "recipe-create" }) -%>
+<body>
+<%- include("../../components/Layout/Header", { user, dropdownOption: "Recipe" }) -%>
+
+<form action="/r/create" method="POST" class="space-y-16 mb-28">
+    <div id="recipe-bg"
+         class="relative bg-cover bg-center flex flex-col justify-between px-[10%] py-16 gap-28 bg-gradient-to-b from-mehandi to-selected-mehandi">
+        <%- include("../../components/Icons/UI/ArrowLeft", { containerClass: "hover:bg-[rgba(255,255,255,0.5)] rounded-full p-2 w-fit", svgClass: "w-8 stroke-2" }) -%>
+        <%- include("../../components/CreateRecipeComp/HeadingCard") -%>
+        <input class="text-lg absolute right-1/4 rounded-lg p-3 top-1/2"
+               placeholder="Recipe Image URL: "
+               name="image-url"
+               type="url"
+        />
+    </div>
+
+    <section class="px-[10%] space-y-12">
+        <%- include("../../components/CreateRecipeComp/Tags") -%>
+        <div class="flex justify-between">
+            <div class="flex flex-col gap-12">
+                <%- include("../../components/CreateRecipeComp/Ingredient") -%>
+                <%- include("../../components/CreateRecipeComp/NutritionalPerServing") -%>
+            </div>
+            <%- include("../../components/CreateRecipeComp/Directions") -%>
+        </div>
+    </section>
+
+
+</form>
+
+<%- include("../../components/Layout/Footer") -%>
+</body>
+</html>

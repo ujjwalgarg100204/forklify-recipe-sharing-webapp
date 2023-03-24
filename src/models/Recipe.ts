@@ -11,6 +11,18 @@ export enum RecipeCategories {
 	dinner = "dinner",
 }
 
+export enum Regions {
+	japanese = "japanese",
+	chinese = "chinese",
+	vietnamese = "vietnamese",
+	russian = "russian",
+	korean = "korean",
+	indian = "indian",
+	indonesian = "indonesian",
+	pakistan = "pakistan",
+	turkish = "turkish",
+}
+
 export interface IRecipe {
 	_id: Types.ObjectId;
 	title: string;
@@ -28,7 +40,7 @@ export interface IRecipe {
 	tags: string[];
 	image: string;
 	video?: string;
-	region: string;
+	region: Regions;
 	servings?: number;
 	prepTime: number;
 	cookTime: number;
@@ -75,7 +87,7 @@ const recipeSchema: Schema = new Schema<IRecipe>({
 	steps: { type: [String], required: true },
 	tags: { type: [String], required: true },
 	image: { type: String, required: true },
-	region: { type: String, required: true },
+	region: { type: String, required: true, enum: Object.values(Regions) },
 	nutrition: {
 		calories: Number,
 		protein: Number,

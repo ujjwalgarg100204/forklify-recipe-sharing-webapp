@@ -6,8 +6,10 @@ const RecipeRouter = Router();
 RecipeRouter.get("/search", (req, res) => {
 	res.render("pages/recipe/search", { user: req.user, resultRecipes: [] });
 });
-
-RecipeRouter.get("/r/:recipeID", async (req, res) => {
+RecipeRouter.get("/create", (req, res) => {
+	res.render("pages/recipe/create", { user: req.user });
+});
+RecipeRouter.get("/:recipeID", async (req, res) => {
 	const recipeID = req.params.recipeID;
 	const recipeData = await getRecipeDetails(recipeID);
 	res.render("pages/recipe/recipe", { recipe: recipeData, user: req.user });

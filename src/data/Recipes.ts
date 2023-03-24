@@ -9,6 +9,7 @@ export async function getPopularRecipes(): Promise<IRecipe[]> {
 	return await Recipe.find()
 		.sort({ bookmarkCount: -1, "reviews.rating": -1 })
 		.limit(20)
+		.lean(true)
 		.exec();
 }
 
