@@ -1,31 +1,46 @@
 import RecipeCollectionModel, {
 	IRecipeCollection,
 } from "../models/RecipeCollection";
-import { getUserData } from "./User";
 
 import { MongoID } from "../types/custom";
+import { Types } from "mongoose";
 
 export async function getRecipeCollection(
 	collectionID: MongoID
 ): Promise<IRecipeCollection | null> {
-	return await RecipeCollectionModel.findById(collectionID).exec();
+	return await RecipeCollectionModel.findById(collectionID).lean().exec();
 }
 
-export async function getRecipeCollectionOfUser(
-	userID: MongoID
-): Promise<IRecipeCollection[] | null> {
-	const foundUser = await getUserData(userID);
-	// if user doesn't exist then return null
-	if (!foundUser) return null;
-
-	if (foundUser.recipeCollections.length === 0) return [];
-
-	return await Promise.all(
-		foundUser.recipeCollections.map(
-			async recipeCollection =>
-				(await getRecipeCollection(
-					recipeCollection
-				)) as IRecipeCollection
-		)
+export async function updateRecipeCollection(
+	id: string,
+	title: string,
+	desc: string,
+	image: string
+) {
+	return RecipeCollectionModel.updateOne(
+		{ _id: id },
+		{ title, desc, image, updatedAt: new Date() }
 	);
+}
+
+export async function getRecipeCollectionOfUser(userID: MongoID) {
+	return await RecipeCollectionModel.find({ author: userID }).lean().exec();
+}
+
+export async function insertRecipeCollection(
+	userID: string | Types.ObjectId,
+	title: string,
+	desc: string,
+	image: string
+) {
+	return new RecipeCollectionModel({
+		title,
+		desc,
+		image,
+		author: userID,
+	}).save();
+}
+
+export async function getRecipeCollections(limit: number) {
+	return await RecipeCollectionModel.find().limit(limit).lean().exec();
 }

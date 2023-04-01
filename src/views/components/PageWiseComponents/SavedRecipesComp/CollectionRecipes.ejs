@@ -1,0 +1,8 @@
+<div class="space-y-16">
+    <% collections.forEach(collections => { %>
+        <div class="space-y-8">
+            <h1 class="font-heading text-3xl font-bold">#<%= collections.title; %></h1>
+            <%- include("../../RecipeCard/RecipeCardList", { recipes: collections.recipes } ) -%>
+        </div>
+    <% }); %>
+</div>

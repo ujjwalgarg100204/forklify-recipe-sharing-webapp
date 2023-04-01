@@ -1,8 +1,49 @@
-<%- include("../../components/UI/HeadIncluder", { titleOfPage: "Login", linkJS: "" }) -%>
-<body class="font-heading space-y-20 bg-[#e6e6e6]">
+<%- include("../../components/UI/HeadIncluder", { titleOfPage: "Dashboard", linkJS: "" }) -%>
+<body class="font-heading bg-[#e6e6e6]">
 <%- include("../../components/Layout/Header", { user, dropdownOption: "Dashboard" }) -%>
+<main class="space-y-16 bg-white">
+    <div class="p-20 bg-[#E5DDD5] grid place-content-center">
+        <img class="rounded-full w-44 h-44 border border-selected-mehandi" src="<%= user.profile.avatar %>"
+             alt="<%= user.profile.name %>">
+    </div>
 
-Dashboard
+    <div class="px-[10%] space-y-10">
+        <div class=" flex justify-center gap-36">
+            <% [
+                [`${user.bookmarkedRecipes.length}`, "😋", "Bookmarked Recipes"],
+                [`${commentsNum}`, "🥰", "Comments on your Recipes"]
+            ].forEach(i => { %>
+                <div class="space-y-4 text-2xl">
+                    <p class="font-heading text-5xl font-bold text-center ">
+                        <span class="underline mx-3"><%= i[0] %></span>
+                        <%= i[1] %>
+                    </p>
+                    <p class="font-small-heading"><%= i[2] %></p>
+                </div>
+            <% }) %>
+        </div>
+        <% if (user.profile.bio) { %>
+            <p class="p-8 bg-gray-100 rounded-xl">
+                <%= user.profile.bio %>
+            </p>
+        <% } %>
+    </div>
+    <div class="p-10 space-y-16">
+        <div>
+            <h2 class="text-4xl font-heading  ">Your Recipes Online 🟢</h2>
+            <div>
+                <%# list of recipes%>
+            </div>
+        </div>
+        <div>
+            <h2 class="text-4xl font-heading  ">Your Collections 📂</h2>
+            <div>
+                <%# list of recipes collectoins %>
+            </div>
+        </div>
+    </div>
+</main>
+
 
 <%- include("../../components/Layout/Footer") -%>
 </body>

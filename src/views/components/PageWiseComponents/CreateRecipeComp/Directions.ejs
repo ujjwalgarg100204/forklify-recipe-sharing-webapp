@@ -1,0 +1,21 @@
+<div class="w-[40%] space-y-8 relative">
+    <h1 class="font-heading font-[550] text-gray-900 text-5xl">Directions</h1>
+    <ol id="direc-container" class="font-body text-gray-900 text-base space-y-4">
+        <li style="counter-increment: li">
+            <div class="space-y-2 flex flex-col">
+                <label for="a" class="text-amber-600">Step <span
+                            class="relative ml-3 before:content-[counter(li)] before:absolute before:inset-0 before:-translate-y-1 before:w-full before:h-full"></span></label>
+                <textarea name="steps"
+                          class="rounded-lg ring-2 ring-amber-700 p-3"
+                >
+                    Heat some water
+                </textarea>
+            </div>
+        </li>
+    </ol>
+    <div class="text-left">
+        <button type="button" id="add-direction" class="text-center">
+            <%- include("../Icons/UI/Actions/Plus", { containerClass: "h-16 w-16 mx-auto", svgClass: "w-full h-full stroke-selected-mehandi" }) -%>
+        </button>
+    </div>
+</div>

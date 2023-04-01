@@ -1,0 +1,5 @@
+<div class="grid gap-10 grid-flow-col auto-cols-[21%] px-10 pb-10 overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-px-10">
+    <% recipes.forEach(recipe => { %>
+        <%- include("./RecipeCard", { ...recipe }) -%>
+    <% }); %>
+</div>

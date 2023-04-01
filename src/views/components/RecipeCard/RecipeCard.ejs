@@ -1,13 +1,13 @@
-<a class="w-80 h-fit rounded-xl shadow-xl pb-4" href="/r/<%= id; %>">
-    <div
-            class="bg-cover bg-center flex flex-col justify-between p-6 h-80 rounded-tl-xl rounded-tr-xl"
-            style="background-image: url('<%= image; %>')"
+<!-- TODO: Make this a link, you get an id of the recipe -->
+<div class="shadow-xl snap-center rounded-xl overflow-hidden font-heading cursor-pointer flex flex-col justify-items-stretch w-[17.5rem]"
+     title="<%= title %>"
+     onclick="location.href='/r/<%= id; %>';"
+>
+    <div class="bg-cover bg-center min-h-[16rem] flex flex-col justify-between p-6"
+         style="background-image: url('<%= image; %>')"
     >
-        <div class="w-fit px-4 py-1 border border-selected-mehandi rounded-full text-white bg-selected-mehandi capitalize">
-            <%= region; %>
-        </div>
-        <p class="w-fit rounded-full font-bold px-4 py-2 bg-[rgba(0,0,0,0.1)] text-white lowercase">
-            <%# Output the time the correct way, if its in hours only then add hours in text %>
+        <p class="w-fit px-4 py-1 bg-selected-mehandi rounded-full text-white capitalize"><%= region %></p>
+        <p class="w-fit rounded-full font-bold px-4 py-2 bg-[rgba(0,0,0,0.4)] text-white">
             <% if (totalTime > 3600) { %>
                 <%= Math.floor(totalTime / 3600) %> hours <%= Math.round((totalTime % 3600) / 60) %>
             <% } else { %>
@@ -15,9 +15,9 @@
             <% } %>
         </p>
     </div>
-    <div class="p-4 px-6 space-y-2">
+    <div class="py-4 px-6 space-y-2">
         <!-- Rating Star div -->
-        <div class="flex justify-start gap-2">
+        <div class="flex gap-2">
             <!-- Filled Stars-->
             <% Array(stars).fill("").forEach(_ => { %>
                 <%- include("../Icons/Reactions/StarSolid", {containerClass: "", svgClass: "w-5 fill-amber-600"}) -%>
@@ -29,9 +29,9 @@
             <% }); %>
         </div>
 
-        <h1 class="text-black text-3xl capitalize"><%= title; %></h1>
+        <h1 class="text-black text-2xl capitalize"><%= title; %></h1>
         <div class="flex justify-between items-center">
-            <p class="text-selected-mehandi text-lg"><%= noOfIngredient %> ingredients</p>
+            <p class="text-selected-mehandi text-base"><%= noOfIngredient %> ingredients</p>
             <% if (bookmarked) { %>
                 <%- include("../Icons/UI/Actions/BookmarkSolid", { containerClass: "", svgClass: "w-5 fill-selected-mehandi" }) -%>
             <% } else { %>
@@ -39,4 +39,4 @@
             <% } %>
         </div>
     </div>
-</a>
+</div>

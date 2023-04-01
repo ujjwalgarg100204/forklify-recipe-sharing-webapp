@@ -41,7 +41,7 @@ export interface IRecipe {
 	image: string;
 	video?: string;
 	region: Regions;
-	servings?: number;
+	servings: number;
 	prepTime: number;
 	cookTime: number;
 	notes?: string;
@@ -70,15 +70,18 @@ const recipeSchema: Schema = new Schema<IRecipe>({
 		required: true,
 	},
 	desc: { type: String, required: true },
-	ingredients: [
-		{
-			name: { type: String, required: true },
-			quantity: {
-				num: { type: Number, required: true },
-				suffix: { type: Number, required: true },
+	ingredients: {
+		type: [
+			{
+				name: { type: String, required: true },
+				quantity: {
+					num: { type: Number, required: true },
+					suffix: { type: String, required: true },
+				},
 			},
-		},
-	],
+		],
+		default: [],
+	},
 	category: {
 		type: String,
 		required: true,
@@ -95,11 +98,11 @@ const recipeSchema: Schema = new Schema<IRecipe>({
 		fat: Number,
 	},
 	video: String,
-	servings: Number,
+	servings: { type: Number, required: true },
 	prepTime: { type: Number, required: true, min: 1 },
 	cookTime: { type: Number, required: true, min: 1 },
 	notes: String,
-	bookmarkCount: Number,
+	bookmarkCount: { type: Number, default: 0 },
 	reviews: {
 		type: [
 			{

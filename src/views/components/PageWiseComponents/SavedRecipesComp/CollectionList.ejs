@@ -1,0 +1,20 @@
+<ul class="flex gap-12 font-body">
+    <li class="flex flex-col justify-between items-center">
+        <a href="/c/create">
+            <%- include("../../Icons/UI/Actions/Plus", { containerClass: "h-24 w-24", svgClass: "w-full h-full stroke-amber-700" }) -%>
+            <p class="text-selected-mehandi">New Collection</p>
+        </a>
+    </li>
+    <% collections.forEach(collection => { %>
+        <li class="flex flex-col gap-2 justify-between items-center">
+            <a href="/c/<%= collection.id; %>">
+                <div class="rounded-full overflow-hidden w-24 h-24 drop-shadow-lg">
+                    <img class="w-full h-full object-center"
+                         src="<%= collection.image; %>"
+                         alt="<%= collection.title %>" />
+                </div>
+                <p class="text-selected-mehandi capitalize"><%= collection.title; %></p>
+            </a>
+        </li>
+    <% }); %>
+</ul>

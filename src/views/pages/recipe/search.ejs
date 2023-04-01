@@ -18,7 +18,7 @@
     <!-- Current approach, I'll add a custom attribute which shows either the attribute is selected or not, and I'll get those attributes from JS, then I'll convert the url in such a way, and load that -->
     <!--FilterList.ejs-->
     <div class="px-[14%] space-y-12">
-        <%- include("../../components/SearchRecipeComp/FilterList") -%>
+        <%- include("../../components/PageWiseComponents/SearchRecipeComp/FilterList") -%>
         <%- include("../../components/UI/Button", { id: "", btnClass: "", type: "button", text: "Show 25 results" }) -%>
     </div>
 </form>
@@ -26,7 +26,7 @@
 <hr class="h-[2px] bg-amber-400 my-10" />
 
 <div id="search-results" class="px-[14%] space-y-32 pb-32">
-    <%- include("../../components/SearchRecipeComp/Results", { resultRecipes }) -%>
+    <%- include("../../components/PageWiseComponents/SearchRecipeComp/Results", { resultRecipes }) -%>
 </div>
 
 <%- include("../../components/Layout/Footer") -%>

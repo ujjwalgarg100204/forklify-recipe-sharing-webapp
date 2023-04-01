@@ -3,12 +3,12 @@
 //         tag should be removed from the tag list
 
 // recipe background image
-$("input[name='image-url']").on("blur", function () {
+$("input[name='image']").on("blur", function () {
 	// on correct value put make the url the actual background
 	$("#recipe-bg").css("background-image", `url('${$(this).val()}')`);
 
 	// remove input from page
-	$(this).remove();
+	$(this).hide();
 });
 
 // recipe card
@@ -25,7 +25,7 @@ $("input[type='radio'][name='stars']").change(function () {
 	});
 });
 
-$("input[name='timeNum']").blur(function () {
+/*$("input[name='timeNum']").blur(function () {
 	const timeNum = +$(this).val();
 	const timeUnit = $("select[name='timeUnit']").val();
 
@@ -48,15 +48,15 @@ $("input[name='timeNum']").blur(function () {
 		else if (timeNum < 60)
 			$("#tag-container").append(tagHTML("Under 60 minutes", "time-tag"));
 	}
-});
+});*/
 
 // Tags
 function tagHTML(text, id) {
-	return `<div class="rounded-full bg-selected-mehandi text-white font-body relative" id="${
+	return `<div class="rounded-full bg-selected-mehandi text-white font-body relative grid place-content-center" id="${
 		id ? id : ""
 	}">
-			<p class="capitalize px-3 py-2">${text}</p>
-			<button class="absolute -right-1.5 -top-1.5" type="button" onclick="(function (elem) { $(elem).parent('div').remove();})(this)">
+			<p class="capitalize px-3 py-2" data-tag="${text}">${text}</p>
+			<button class="absolute -right-1 -top-1" type="button" onclick="(function (elem) { $(elem).parent('div').remove();})(this)">
 				<div class="rounded-full bg-gray-900 p-2">
 					<svg class="w-1.5 fill-white" 
 						 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ function tagHTML(text, id) {
     	</div>`;
 }
 
-$("input[name='tags']").keydown(function (ev) {
+$("#tags").keydown(function (ev) {
 	if (ev.which !== 32) return;
 	ev.preventDefault();
 
@@ -85,29 +85,97 @@ $("#dec-ingredient").click(() =>
 );
 $("#add-ingredient").click(function () {
 	$("#ingredient-container").append(`
-		<li class="relative px-8 before:absolute before:w-4 before:h-4 before:rounded-full before:top-1/4 before:-left-0 before:bg-amber-600">
-			<span class="font-bold">
-				<input class="w-20" type="number" placeholder="1..3" name="quantity-num" />
-				<input class="w-28" type="text" placeholder="g/tbsp" name="quantity-suffix" />
-			</span> <input type="text" placeholder="Name" name="ing-name" /> 
-		</li>	
+		<li class="relative px-8 before:absolute before:w-4 before:h-4 before:rounded-full before:top-1/4 before:-left-0 before:bg-amber-600" data-ingredient>
+            <label class="font-bold space-x-3">
+                <input class="w-24 rounded-full ring-2 ring-amber-700 p-2 px-4" type="number" placeholder="1..3"
+                       name="ingredientQuantityNum" />
+                <input class="w-20 rounded-full ring-2 ring-amber-700 p-2 px-4" type="text" placeholder="g/tbsp"
+                       name="ingredientQuantitySuffix" />
+            </label> 
+            <input class="ml-4 rounded-full ring-2 ring-amber-700 p-2 px-4" 
+				   type="text"
+				   placeholder="Ingredient name"
+				   name="ingredientName" 
+		    />
+        </li>	
 	`);
 });
 
-// direction
+// direction or steps
 $("#add-direction").click(function () {
 	$("#direc-container").append(`
 		<li style="counter-increment: li">
             <div class="space-y-2 flex flex-col">
                 <label for="a" class="text-amber-600">Step <span
                             class="relative ml-3 before:content-[counter(li)] before:absolute before:inset-0 before:-translate-y-1 before:w-full before:h-full"></span></label>
-                <input type="text" name="step" class="bg-[#e6e6e6]"/>
+                <textarea name="steps" class="rounded-lg ring-2 ring-amber-700 p-3"></textarea>
             </div>
         </li>
 	`);
 });
 
-/*
+$('form[action="/r/create"]').submit(function (ev) {
+	ev.preventDefault();
+	// get all attributes of form
+	const title = $("[name='title']").val();
+	const desc = $("[name='desc']").val();
+	const ingredients = $("[data-ingredient]")
+		.map(function () {
+			const num = +$(this).find(`[name="ingredientQuantityNum"]`).val();
+			const suffix = $(this)
+				.find("[name='ingredientQuantitySuffix']")
+				.val();
+			const name = $(this).find(`[name="ingredientName"]`).val();
 
+			return { name, quantity: { num, suffix } };
+		})
+		.get();
 
-         */
+	const category = $("[name='category']").val();
+	const steps = $("[name='steps']")
+		.map(function () {
+			return $(this).val().trim();
+		})
+		.get();
+	const tags = $("[data-tag]")
+		.map(function () {
+			return $(this).data("tag");
+		})
+		.get();
+	const image = $(`[name="image"]`).val();
+	const region = $(`[name="region"]`).val();
+	const servings = +$(`[name="servings"]`).val();
+	const prepTime = $(`[name="prepTime"]`).val(); //TODO: convert it to seconds
+	const cookTime = $(`[name="cookTime"]`).val(); // TODO: convert it to seconds
+	const nutrition = {
+		calories: +$(`[name='calories']`).val(),
+		protein: +$(`[name='protein']`).val(),
+		carb: +$(`[name='carb']`).val(),
+		fat: +$(`[name='fat']`).val(),
+	};
+
+	const data = {
+		title,
+		desc,
+		ingredients,
+		category,
+		steps,
+		tags,
+		image,
+		region,
+		servings,
+		prepTime,
+		cookTime,
+		nutrition,
+	};
+
+	console.log(JSON.stringify(data));
+
+	fetch("#", {
+		method: "POST",
+		body: JSON.stringify(data),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	}).then(res => console.dir(res));
+});

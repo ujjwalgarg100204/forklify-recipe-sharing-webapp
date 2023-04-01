@@ -1,7 +1,9 @@
-import Recipe, { IRecipe } from "../models/Recipe";
+import Recipe, { RecipeCategories, Regions } from "../models/Recipe";
+import RecipeModel, { IRecipe } from "../models/Recipe";
 import { MongoID } from "../types/custom";
 import { getUserData } from "./User";
 import { IUser } from "../models/User";
+import { Types } from "mongoose";
 
 export async function getPopularRecipes(): Promise<IRecipe[]> {
 	// popular recipe is defined as a recipe with most bookmarkCount and higher
@@ -33,7 +35,7 @@ export async function getRecommendationRecipes(): Promise<
 export async function getRecipeDetails(
 	id: MongoID
 ): Promise<RecommendationCard | null> {
-	const foundRecipe = await Recipe.findById(id).exec();
+	const foundRecipe = await Recipe.findById(id).lean(true).exec();
 	return foundRecipe
 		? {
 				...foundRecipe,
@@ -87,4 +89,37 @@ export async function getRecipeCardDetails(
 		noOfIngredient,
 		bookmarked,
 	};
+}
+
+export async function saveRecipeDetails(recipe: {
+	title: string;
+	author: Types.ObjectId;
+	desc: string;
+	ingredients: {
+		name: string;
+		quantity: {
+			num: number;
+			suffix: string;
+		};
+	}[];
+	category: RecipeCategories;
+	steps: string[];
+	tags: string[];
+	image: string;
+	video?: string;
+	region: Regions;
+	servings?: number;
+	prepTime: number;
+	cookTime: number;
+	notes?: string;
+	nutrition?: {
+		calories?: number;
+		protein?: number;
+		carb?: number;
+		fat?: number;
+	};
+}) {
+	return await new RecipeModel({
+		...recipe,
+	}).save();
 }

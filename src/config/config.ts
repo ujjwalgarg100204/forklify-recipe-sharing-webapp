@@ -1,18 +1,15 @@
 import express, { Express } from "express";
-import configEJS from "./ejs.config";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import passport from "passport";
 import configPassport from "./passport.config";
+import path from "path";
 
 function config(app: Express): void {
 	// config EJS
-	configEJS(app);
-
-	// config passport
-	app.use(express.json());
-	app.use(express.urlencoded({ extended: true }));
+	app.set("views", path.join(__dirname, "..", "..", "src", "views"));
+	app.set("view engine", "ejs");
 
 	// config mongoose
 	const MONGO_URL: string = (
@@ -27,7 +24,7 @@ function config(app: Express): void {
 		})
 		.then(m => m.connection.getClient());
 
-	// passport-session setup & cookies setup
+	// session setup & cookies setup
 	app.use(
 		session({
 			secret: process.env.COOKIE_SECRET as string,
@@ -43,6 +40,9 @@ function config(app: Express): void {
 			},
 		})
 	);
+
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
 
 	// passport setup
 	app.use(passport.initialize());

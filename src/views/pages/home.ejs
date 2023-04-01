@@ -8,7 +8,7 @@
 				"
     ></div>
 
-    <%- include("../components/HomePageComp/Navbar", { user }) -%>
+    <%- include("../components/PageWiseComponents/HomePageComp/Navbar", { user }) -%>
 
     <h1 class="z-1 relative mt-32 w-2/5 rounded-lg font-heading text-7xl font-bold">
         Stop waisting your <br />
@@ -31,7 +31,7 @@
         How it works <span class="font-normal">?</span>
     </h1>
 
-    <%- include("../components/HomePageComp/HowItWorksList") -%>
+    <%- include("../components/PageWiseComponents/HomePageComp/HowItWorksList") -%>
 
     <%- include("../components/UI/Button", { text: "Find Recipes", type: "b", id: "btn-find-recipe2" }) -%>
 </section>
@@ -58,13 +58,13 @@
 <section class="text-center space-y-7 px-20">
     <h1 class="text-7xl font-bold font-heading">Categories</h1>
     <p class="text-xl ">A large selection of dishes for cooking</p>
-    <%- include("../components/HomePageComp/CategoriesList") -%>
+    <%- include("../components/PageWiseComponents/HomePageComp/CategoriesList") -%>
 </section>
 
 <section class="text-center space-y-8">
     <h1 class="text-7xl font-bold tracking-tight font-heading">Recommendations</h1>
     <div class="flex gap-32 justify-center items-center pt-8">
-        <%- include("../components/HomePageComp/RecommendationList", { recipes: recommendedRecipes }) -%>
+        <%- include("../components/PageWiseComponents/HomePageComp/RecommendationList", { recipes: recommendedRecipes }) -%>
     </div>
 </section>
 

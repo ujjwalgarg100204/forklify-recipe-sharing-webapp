@@ -16,7 +16,7 @@ IndexRouter.use("/u", UserRouter);
 IndexRouter.get("/", async (req, res) => {
 	const recommendedRecipes = await getRecommendationRecipes();
 	res.render("pages/home", {
-		recommendedRecipes,
+		recommendedRecipes: recommendedRecipes.slice(0, 5),
 		user: req.user,
 	});
 });

@@ -2,15 +2,15 @@
   "name": "forklify",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/app.js",
   "scripts": {
     "ts:build": "npx tsc",
     "ts:dev": "npx tsc --watch",
     "tailwind:build": "postcss ./src/public/styles/tailwind.css -o ./src/public/styles/style.css",
     "tailwind:dev": "postcss ./src/public/styles/tailwind.css -o ./src/public/styles/style.css --watch",
-    "nodemon:chrome": "nodemon --ext js,ejs -q --inspect-brk build/index.js",
-    "nodemon:firefox": "nodemon --ext js,ejs -q build/index.js",
-    "start": "node build/index.js",
+    "nodemon:chrome": "nodemon --ext js,ejs -q --inspect-brk build/app.js",
+    "nodemon:firefox": "nodemon --ext js,ejs -q build/app.js",
+    "start": "node build/app.js",
     "start:dev": "concurrently \"npm run ts:dev\" \"npm run tailwind:dev\" \"npm run nodemon:firefox\"",
     "start:dev:chrome": "concurrently \"npm run ts:dev\" \"npm run tailwind:dev\" \"npm run nodemon:chrome\"",
     "build": "npm install && npm run ts:build && npm run tailwind:build"
@@ -22,15 +22,15 @@
     "@types/ejs": "^3.1.2",
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.17.7",
-    "@types/node": "^18.15.3",
+    "@types/node": "^18.15.10",
     "@types/passport": "^1.0.12",
     "@types/passport-github2": "^1.2.5",
     "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-linkedin-oauth2": "^1.5.3",
     "concurrently": "^7.6.0",
-    "nodemon": "^2.0.21",
-    "prettier": "^2.8.4",
-    "prettier-plugin-tailwindcss": "^0.2.4"
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.5"
   },
   "dependencies": {
     "@types/body-parser": "^1.19.2",
@@ -42,7 +42,7 @@
     "ejs-lint": "^2.0.0",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "mongoose": "^7.0.2",
+    "mongoose": "^7.0.3",
     "passport": "^0.6.0",
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
@@ -51,6 +51,6 @@
     "postcss-cli": "^10.1.0",
     "tailwindcss": "^3.2.7",
     "tailwindcss-elevation": "^2.0.0",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   }
 }

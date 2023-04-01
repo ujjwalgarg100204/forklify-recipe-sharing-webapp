@@ -21,7 +21,6 @@ export interface IUser {
 	recipes: Types.ObjectId[];
 	bookmarkedRecipes: Types.ObjectId[];
 	recipeCollections: Types.ObjectId[];
-	shoppingLists: Types.ObjectId[];
 }
 
 const userSchema = new Schema<IUser>({
@@ -49,10 +48,6 @@ const userSchema = new Schema<IUser>({
 	},
 	recipeCollections: {
 		type: [{ type: Schema.Types.ObjectId, ref: "RecipeCollection" }],
-		default: [],
-	},
-	shoppingLists: {
-		type: [{ type: Schema.Types.ObjectId, ref: "ShoppingList" }],
 		default: [],
 	},
 });
