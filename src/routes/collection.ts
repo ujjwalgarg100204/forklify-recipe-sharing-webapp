@@ -5,7 +5,7 @@ import {
 } from "../data/RecipesCollection";
 import { IRecipeCollection } from "../models/RecipeCollection";
 import { getRecipe } from "../data/Recipes";
-import { RecipeCollectionDetailed } from "../types/custom/frontend-types";
+import { RecipeCollectionDetailed } from "../types/custom";
 import { toRecipeCard } from "../utils";
 
 const CollectionRouter = Router();
@@ -45,7 +45,7 @@ CollectionRouter.get("/:id", async (req, res) => {
 
 	const collection: RecipeCollectionDetailed = {
 		...collectionData,
-		recipesContaine,
+		recipesContained,
 	};
 
 	res.render("pages/collections/[id]", { collection, user: req.user });

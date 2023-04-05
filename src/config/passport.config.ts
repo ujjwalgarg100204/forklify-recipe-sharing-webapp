@@ -1,6 +1,6 @@
 import passport from "passport";
 import {
-	Profile as LinekdInProfile,
+	Profile as LinkedInProfile,
 	Strategy as LinkedInStrategy,
 } from "passport-linkedin-oauth2";
 import { Strategy as GitHubStrategy } from "passport-github2";
@@ -50,7 +50,7 @@ export default function configPassport(): void {
 			async (
 				accessToken: string,
 				refreshToken: string,
-				profile: LinekdInProfile,
+				profile: LinkedInProfile,
 				done: VerifyCallback
 			) => {
 				const foundUser = await UserModel.findOne({

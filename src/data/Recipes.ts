@@ -3,7 +3,7 @@ import RecipeModel, { IRecipe, RecipeCategories, Regions } from "../models/Recip
 import { MongoID } from "../types/custom";
 import { Types } from "mongoose";
 import User, { IUser } from "../models/User";
-import { BookmarkResponse, DeleteResponse } from "../types/custom/api-return-types";
+import { BookmarkResponse, DeleteResponse } from "../types/custom";
 import RecipeCollection from "../models/RecipeCollection";
 
 export async function getPopularRecipes(): Promise<IRecipe[]> {
@@ -173,7 +173,7 @@ export async function searchRecipesUsingFilters(
 			.filter(
 				filter => !["dish_type", "regions", "time"].includes(filter[0])
 			)
-			.map(filter => filter[1),
+			.map(filter => filter[1]),
 	};
 
 	return await RecipeModel.find({
@@ -185,7 +185,7 @@ export async function searchRecipesUsingFilters(
 				$expr: {
 					$lt: [
 						{ $add: ["$cookTime", "$prepTime"] },
-						filterObj.cookTie,
+						filterObj.cookTime,
 				],
 			},
 		},

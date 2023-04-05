@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { getAllRecipes, getPopularRecipes, getRecipe, searchRecipe, searchRecipesUsingFilters } from "../data/Recipes";
+import {
+	getAllRecipes,
+	getPopularRecipes,
+	getRecipe,
+	searchRecipe,
+	searchRecipesUsingFilters,
+} from "../data/Recipes";
 import { categoriesIcons, filterList } from "../data/StaticData";
 import { toRecipeCard } from "../utils";
 import RecipeModel, { IRecipe } from "../models/Recipe";
@@ -34,7 +40,7 @@ RecipeRouter.get("/search", (req, res) => {
 		filters,
 		user: req.user,
 		resultRecipes: [],
-		showResults: fale,
+		showResults: false,
 	});
 });
 
@@ -60,29 +66,29 @@ RecipeRouter.post("/search/results", async (req, res) => {
 
 				resultRecipes = await RecipeModel.find({
 					$expr: {
-						$lt: [{ $add: ["$cookTime", "$prepTime"] }, maxTim],
-				},
+						$lt: [{ $add: ["$cookTime", "$prepTime"] }, maxTime],
+					},
 				})
 					.lean()
 					.exec();
 				break;
 			case "dish type":
 				resultRecipes = await RecipeModel.find({
-					category: filterVale,
+					category: filterValue,
 				})
 					.lean()
 					.exec();
 				break;
 			case "regions":
 				resultRecipes = await RecipeModel.find({
-					region: filterVale,
+					region: filterValue,
 				})
 					.lean()
 					.exec();
 				break;
 			default:
 				resultRecipes = await RecipeModel.find({
-					tags: { $in: [filterValue]},
+					tags: { $in: [filterValue] },
 				})
 					.lean()
 					.exec();
@@ -96,7 +102,7 @@ RecipeRouter.post("/search/results", async (req, res) => {
 		user: req.user,
 		showResults: true,
 		resultRecipes: resultRecipes.map(recipe => toRecipeCard(recipe)),
-		filtes,
+		filters,
 	});
 });
 
@@ -109,13 +115,13 @@ RecipeRouter.get("/search/search-bar/:query", async (req, res) => {
 		res.status(200).json({
 			error: null,
 			success: true,
-			foundRecips,
+			foundRecipes,
 		});
 	} catch (e) {
 		res.status(404).json({
 			error: e,
 			success: false,
-			foundRecipes: ],
+			foundRecipes: [],
 		});
 	}
 });
@@ -127,7 +133,7 @@ RecipeRouter.get("/popular", async (req, res) => {
 
 	res.render("pages/recipe/popular", {
 		recipes: popularRecipes,
-		user: req.usr,
+		user: req.user,
 	});
 });
 
@@ -143,7 +149,7 @@ RecipeRouter.get("/:id", async (req, res) => {
 		recipe: recipeData,
 		user: req.user,
 		recommendedRecipes: recipes,
-		servings: 4
+		servings: 4,
 	});
 });
 

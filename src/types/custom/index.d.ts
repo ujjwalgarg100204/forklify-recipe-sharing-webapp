@@ -1,6 +1,14 @@
 import GitHubProfile from "./github-profile";
 import { Types } from "mongoose";
-import { HowItWorksType, ProfileCard, RecipeCard } from "./frontend-types";
+import { BookmarkResponse, DeleteResponse } from "./api-return-types";
+import {
+	HowItWorksType,
+	ProfileCard,
+	RecipeCard,
+	CategoriesIcons,
+	FilterListItem,
+	RecipeCollectionDetailed,
+} from "./frontend-types";
 
 type MongoID = string | Types.ObjectId;
 
@@ -10,5 +18,9 @@ export {
 	RecipeCard,
 	ProfileCard,
 	HowItWorksType,
-	CategoriesIcon,
+	CategoriesIcons,
+	FilterListItem,
+	RecipeCollectionDetailed,
+	BookmarkResponse,
+	DeleteResponse,
 };

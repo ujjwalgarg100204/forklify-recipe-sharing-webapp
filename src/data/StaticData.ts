@@ -1,6 +1,6 @@
 import { CategoriesIcons, HowItWorksType, ProfileCard } from "../types/custom";
 import { RecipeCategories } from "../models/Recipe";
-import { FilterListItem } from "../types/custom/frontend-types";
+import { FilterListItem } from "../types/custom";
 
 export const developersProfiles: ProfileCard[] = [
 	{
