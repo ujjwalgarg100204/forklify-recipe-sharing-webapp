@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { RecipeCategories, Regions } from "../../models/Recipe";
-import { saveRecipeDetails } from "../../data/Recipes";
+import { saveRecipe } from "../../data/Recipes";
 
 interface RequestRecipe {
 	title: string;
@@ -39,7 +39,7 @@ RecipeCreateRouter.route("/")
 	.post(async (req, res) => {
 		const recipe: RequestRecipe = req.body;
 
-		const result = await saveRecipeDetails({
+		const result = await saveRecipe({
 			...recipe,
 			author: req.user!._id,
 		});

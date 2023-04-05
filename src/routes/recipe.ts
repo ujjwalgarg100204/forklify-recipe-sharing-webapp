@@ -1,8 +1,22 @@
 import { Router } from "express";
-import { getPopularRecipes, getRecipeDetails } from "../data/Recipes";
+import { getAllRecipes, getPopularRecipes, getRecipe, searchRecipe, searchRecipesUsingFilters } from "../data/Recipes";
+import { categoriesIcons, filterList } from "../data/StaticData";
+import { toRecipeCard } from "../utils";
+import RecipeModel, { IRecipe } from "../models/Recipe";
 
 const RecipeRouter = Router();
 
+RecipeRouter.get("/", async (req, res) => {
+	const recipes = (await getPopularRecipes()).map(recipe =>
+		toRecipeCard(recipe, req.user)
+	);
+
+	res.render("pages/recipe/index", {
+		recipes,
+		categories: categoriesIcons,
+		user: req.user,
+	});
+});
 // protected routes
 RecipeRouter.get("/create", (req, res) => {
 	res.redirect("/u/recipe/create");
@@ -15,52 +29,121 @@ RecipeRouter.get("/update/:id", (req, res) => {
 
 // public routes
 RecipeRouter.get("/search", (req, res) => {
-	res.render("pages/recipe/search", { user: req.user, resultRecipes: [] });
+	const filters = filterList;
+	res.render("pages/recipe/search", {
+		filters,
+		user: req.user,
+		resultRecipes: [],
+		showResults: fale,
+	});
+});
+
+RecipeRouter.post("/search/results", async (req, res) => {
+	const filters = filterList;
+	const { userFilters } = req.body;
+
+	let resultRecipes: IRecipe[];
+	if (typeof userFilters === "undefined")
+		resultRecipes = await getAllRecipes();
+	else if (typeof userFilters === "string") {
+		const [filterTitle, filterValue] = userFilters.split("_") as [
+			string,
+			string
+		];
+
+		switch (filterTitle) {
+			case "time":
+				let maxTime;
+				if (filterValue === "under 15 min") maxTime = 900;
+				else if (filterValue === "under 30 min") maxTime = 1800;
+				else maxTime = 3600;
+
+				resultRecipes = await RecipeModel.find({
+					$expr: {
+						$lt: [{ $add: ["$cookTime", "$prepTime"] }, maxTim],
+				},
+				})
+					.lean()
+					.exec();
+				break;
+			case "dish type":
+				resultRecipes = await RecipeModel.find({
+					category: filterVale,
+				})
+					.lean()
+					.exec();
+				break;
+			case "regions":
+				resultRecipes = await RecipeModel.find({
+					region: filterVale,
+				})
+					.lean()
+					.exec();
+				break;
+			default:
+				resultRecipes = await RecipeModel.find({
+					tags: { $in: [filterValue]},
+				})
+					.lean()
+					.exec();
+		}
+	} else
+		resultRecipes = await searchRecipesUsingFilters(
+			userFilters.map((filter: string) => filter.split("_"))
+		);
+
+	res.render("pages/recipe/search", {
+		user: req.user,
+		showResults: true,
+		resultRecipes: resultRecipes.map(recipe => toRecipeCard(recipe)),
+		filtes,
+	});
+});
+
+RecipeRouter.get("/search/search-bar/:query", async (req, res) => {
+	const { query } = req.params;
+	try {
+		const foundRecipes = (
+			query === "all" ? await getAllRecipes() : await searchRecipe(query)
+		).map(recipe => toRecipeCard(recipe));
+		res.status(200).json({
+			error: null,
+			success: true,
+			foundRecips,
+		});
+	} catch (e) {
+		res.status(404).json({
+			error: e,
+			success: false,
+			foundRecipes: ],
+		});
+	}
 });
 
 RecipeRouter.get("/popular", async (req, res) => {
-	const popularRecipes = await getPopularRecipes();
+	const popularRecipes = (await getPopularRecipes()).map(recipe =>
+		toRecipeCard(recipe)
+	);
 
-	res.render("pages/recipe/popular", { popularRecipes, user: req.user });
+	res.render("pages/recipe/popular", {
+		recipes: popularRecipes,
+		user: req.usr,
+	});
 });
 
-RecipeRouter.get("/", async (req, res) => {
-	const recipes = (await getPopularRecipes()).map(recipe => ({
-		...recipe,
-		id: recipe._id.toString(),
-		totalTime: recipe.cookTime + recipe.prepTime,
-		stars: 4,
-		noOfIngredient: recipe.ingredients.length,
-		bookmarked: true,
-	}));
+RecipeRouter.get("/:id", async (req, res) => {
+	const { id } = req.params;
+	const recipeData = toRecipeCard((await getRecipe(id)) as IRecipe, req.user);
 
-	res.render("pages/recipe/recipes", { recipes, user: req.user });
-});
+	const recipes = (await getPopularRecipes()).map(recipe =>
+		toRecipeCard(recipe)
+	);
 
-RecipeRouter.get("/:recipeID", async (req, res) => {
-	const recipeID = req.params.recipeID;
-	const recipeData = await getRecipeDetails(recipeID);
-
-	const recipe = { ...recipeData, stars: 4 };
-
-	const recipes = (await getPopularRecipes()).map(recipe => ({
-		...recipe,
-		id: recipe._id.toString(),
-		totalTime: recipe.cookTime + recipe.prepTime,
-		stars: 4,
-		noOfIngredient: recipe.ingredients.length,
-		bookmarked: true,
-	}));
-
-	res.render("pages/recipe/recipe-id", {
-		recipe: recipe,
+	res.render("pages/recipe/[id]", {
+		recipe: recipeData,
 		user: req.user,
-		servings: 4,
-		calories: 5,
-		protein: 200,
-		carb: 200,
-		fat: 400,
-		recipes: recipes.slice(0, 5),
+		recommendedRecipes: recipes,
+		servings: 4
 	});
 });
 

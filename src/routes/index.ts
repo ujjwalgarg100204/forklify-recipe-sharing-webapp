@@ -3,7 +3,14 @@ import AuthRoutes from "./auth";
 import RecipeRouter from "./recipe";
 import UserRouter from "./user";
 import CollectionRouter from "./collection";
-import { getRecommendationRecipes } from "../data/Recipes";
+import { getPopularRecipes } from "../data/Recipes";
+import {
+	categoriesIcons,
+	developersProfiles,
+	howItWorksData,
+} from "../data/StaticData";
+import { CategoriesIcons, HowItWorksType, ProfileCard } from "../types/custom";
+import { toRecipeCard } from "../utils";
 
 const IndexRouter = Router();
 
@@ -14,23 +21,29 @@ IndexRouter.use("/c", CollectionRouter);
 IndexRouter.use("/u", UserRouter);
 
 IndexRouter.get("/", async (req, res) => {
-	const recommendedRecipes = await getRecommendationRecipes();
-	res.render("pages/home", {
-		recommendedRecipes: recommendedRecipes.slice(0, 5),
+	// static data
+	const howItWorks: HowItWorksType[] = howItWorksData;
+	const categoriesWithIcons: CategoriesIcons[] = categoriesIcons;
+
+	// data from database
+	const recommendedRecipes = (await getPopularRecipes()).map(recipe =>
+		toRecipeCard(recipe, req.user)
+	);
+	res.render("pages/index", {
+		recommendedRecipes,
+		howItWorks,
+		categoriesWithIcons,
 		user: req.user,
 	});
 });
 
 IndexRouter.get("/about", (req, res) => {
-	res.render("pages/about", { user: req.user });
+	const profiles: ProfileCard[] = developersProfiles;
+	res.render("pages/about", { profiles, user: req.user });
 });
 
 IndexRouter.get("/conditions", (req, res) => {
 	res.render("pages/conditions", { user: req.user });
-});
-
-IndexRouter.get("/contact", (req, res) => {
-	res.render("pages/contact", { user: req.user });
 });
 
 IndexRouter.get("/privacy-policy", (req, res) => {

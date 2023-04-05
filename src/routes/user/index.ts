@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { getRecipeCollectionOfUser } from "../../data/RecipesCollection";
 import RecipeCreateRouter from "./create";
 import { getRecipesOfUser } from "../../data/User";
-import RecipeModel, { IRecipe } from "../../models/Recipe";
-import { isAuthenticated } from "../util";
-import User from "../../models/User";
+
 import RecipeUserRouter from "./recipe";
 import CollectionUserRouter from "./collection";
+import { isAuthenticated, toRecipeCard } from "../../utils";
+import { IRecipe } from "../../models/Recipe";
+import { getRecipeCollectionOfUser } from "../../data/RecipesCollection";
 
 const UserRouter = Router();
 
@@ -21,7 +21,10 @@ UserRouter.get("/", (req, res) => {
 });
 
 UserRouter.get("/dashboard", async (req, res) => {
-	const userRecipes = (await getRecipesOfUser(req.user!._id)) as IRecipe[];
+	const userRecipes = (
+		(await getRecipesOfUser(req.user!._id)) as IRecipe[]
+	).map(recipe => toRecipeCard(recipe));
+	const userCollections = await getRecipeCollectionOfUser(req.user!._id);
 	const commentsNum = userRecipes.reduce(
 		(previousValue, currentValue) =>
 			previousValue +
@@ -30,7 +33,12 @@ UserRouter.get("/dashboard", async (req, res) => {
 			).length,
 		0
 	);
-	res.render("pages/user/dashboard", { commentsNum, user: req.user });
+	res.render("pages/user/dashboard", {
+		recipes: userRecipes,
+		collections: userCollections,
+		user: req.user,
+		commentsNum,
+	});
 });
 
 export default UserRouter;

@@ -23,7 +23,9 @@ export async function updateRecipeCollection(
 	);
 }
 
-export async function getRecipeCollectionOfUser(userID: MongoID) {
+export async function getRecipeCollectionOfUser(
+	userID: MongoID
+): Promise<IRecipeCollection[]> {
 	return await RecipeCollectionModel.find({ author: userID }).lean().exec();
 }
 
@@ -41,6 +43,6 @@ export async function insertRecipeCollection(
 	}).save();
 }
 
-export async function getRecipeCollections(limit: number) {
-	return await RecipeCollectionModel.find().limit(limit).lean().exec();
+export async function getAllRecipeCollections() {
+	return await RecipeCollectionModel.find().lean().exec();
 }

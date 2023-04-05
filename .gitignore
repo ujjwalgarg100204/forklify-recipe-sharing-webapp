@@ -1,5 +1,7 @@
 build
-todo.csv
+todo.*
+**/testing/*
+/src/public/styles/style.css
 
 # Logs
 logs

@@ -1,5 +1,12 @@
 import { Router } from "express";
-import { getRecipeCollections } from "../data/RecipesCollection";
+import {
+	getAllRecipeCollections,
+	getRecipeCollection,
+} from "../data/RecipesCollection";
+import { IRecipeCollection } from "../models/RecipeCollection";
+import { getRecipe } from "../data/Recipes";
+import { RecipeCollectionDetailed } from "../types/custom/frontend-types";
+import { toRecipeCard } from "../utils";
 
 const CollectionRouter = Router();
 
@@ -25,9 +32,28 @@ CollectionRouter.get("/search", (req, res) => {
 	res.render("pages/collection/search", { user: req.user });
 });
 
-CollectionRouter.get("/browse", async (req, res) => {
-	const collections = await getRecipeCollections(20);
-	res.render("pages/collections/browse", { collections, user: req.user, personalised: false });
+CollectionRouter.get("/:id", async (req, res) => {
+	const { id } = req.params;
+	const collectionData = (await getRecipeCollection(id)) as IRecipeCollection;
+	const recipesContained = (
+		await Promise.all(
+			collectionData.recipes.map(
+				async recipeID => (await getRecipe(recipeID))!
+			)
+		)
+	).map(recipe => toRecipeCard(recipe));
+
+	const collection: RecipeCollectionDetailed = {
+		...collectionData,
+		recipesContaine,
+	};
+
+	res.render("pages/collections/[id]", { collection, user: req.user });
+});
+
+CollectionRouter.get("/", async (req, res) => {
+	const collections = await getAllRecipeCollections();
+	res.render("pages/collections/", { collections, user: req.user });
 });
 
 export default CollectionRouter;

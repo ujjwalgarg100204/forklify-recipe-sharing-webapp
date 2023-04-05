@@ -1,9 +1,9 @@
 import { Router } from "express";
 import {
 	getRecipeCollection,
-	updateRecipeCollection,
-	insertRecipeCollection,
 	getRecipeCollectionOfUser,
+	insertRecipeCollection,
+	updateRecipeCollection,
 } from "../../data/RecipesCollection";
 import { IRecipeCollection } from "../../models/RecipeCollection";
 
@@ -42,13 +42,9 @@ CollectionUserRouter.post("/update/:id", async (req, res) => {
 });
 
 // Show all collections of user
-CollectionUserRouter.get("/", (req, res) => {
-	res.redirect("/u/collections/browse");
-});
-
-CollectionUserRouter.get("/browse", async (req, res) => {
+CollectionUserRouter.get("/", async (req, res) => {
 	const collections = await getRecipeCollectionOfUser(req.user!._id);
-	res.render("pages/collections/browse", {
+	res.render("pages/collections/index", {
 		collections,
 		user: req.user,
 		personalised: true,

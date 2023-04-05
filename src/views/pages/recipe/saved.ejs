@@ -1,18 +1,14 @@
-<%- include("../../components/UI/HeadIncluder", { titleOfPage: "My Saved Recipes", linkJS: "" }) -%>
+<%- include("../../components/UI/HeadIncluder", { titleOfPage: "Explore Recipes" }) -%>
 <body class="font-body text-mehandi">
+<%- include("../../components/Layout/Header", { user, dropdownOption: "Recipe" }) -%>
 
-<%- include("../../components/Layout/Header", { user, dropdownOption: "My saved recipes" }) -%>
-
-<main class="mt-20 space-y-8 pb-16 px-[10%]">
+<main class="mt-20 space-y-20 pb-16 px-[10%]">
     <h1 class="text-6xl font-bold font-heading tracking-tight text-center capitalize">
-        My saved recipes
+        Your Saved Recipes 🧑‍🍳
     </h1>
-
-    <%- include("../../components/PageWiseComponents/SavedRecipesComp/CollectionList", { collections: userCollections }) -%>
-
-    <hr class="border-2 border-gray-100" />
-
-    <%- include("../../components/PageWiseComponents/SavedRecipesComp/CollectionRecipes", { collections: userCollections }) -%>
+    <div class="relative flex items-center gap-10">
+        <%- include("../../components/Recipe/Sliders/RecipeCardSlider", { name: "collection", recipes: bookmarkedRecipes }) -%>
+    </div>
 </main>
 
 <%- include("../../components/Layout/Footer") -%>
