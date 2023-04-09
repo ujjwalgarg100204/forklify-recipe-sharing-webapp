@@ -143,13 +143,19 @@ RecipeUserRouter.post("/edit/:id", async (req, res) => {
 
 RecipeUserRouter.get("/delete/:id", async (req, res) => {
 	const { id } = req.params;
-	res.render("pages/recipe/delete/[id]");
-});
-RecipeUserRouter.delete("/delete/:id", async (req, res) => {
-	const { id } = req.params;
-	const deleteResponse = await deleteRecipe(id);
+	const { confirmation } = req.query;
+	if (confirmation) {
+		await deleteRecipe(id);
+		res.redirect("/u/recipes");
+		return;
+	}
+	const recipeDetail = await getRecipe(id);
 
-	res.status(deleteResponse.success ? 200 : 500).json(deleteResponse);
+	res.render("components/confirm", {
+		prompt: `You are about to delete *${recipeDetail?.title}* Recipe`,
+		yesMessage: "Are you sure to delete this recipe?",
+		yesLink: `/u/recipes/delete/${id}?confirmation=true`,
+	});
 });
 
 RecipeUserRouter.get("/bookmark/:id", async (req, res) => {

@@ -12,7 +12,7 @@
             { category: "My good food", link: "/" },
             { category: "Own recipes", link: "/u/recipes" },
             { category: "My saved recipes", link: "/u/recipes/saved" },
-            { category: "Sign Out", link: "/auth/logout" }
+            { category: "Sign Out", link: "/auth/confirm-logout" }
         ].filter(option => option.category !== selected).forEach(option => { %>
             <a class="dropdown-menu__link border-none block w-full py-2 px-3 bg-transparent text-white text-center font-bold hover:bg-selected-mehandi"
                href="<%= option.link %>">

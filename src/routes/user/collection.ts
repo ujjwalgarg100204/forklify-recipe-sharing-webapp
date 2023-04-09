@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+	deleteRecipeCollection,
 	getRecipeCollection,
 	getRecipeCollectionOfUser,
 	insertRecipeCollection,
@@ -46,13 +47,30 @@ CollectionUserRouter.post("/update/:id", async (req, res) => {
 	res.redirect("/u/collections"); // redirect to page where all collections are shown
 });
 
+CollectionUserRouter.get("/delete/:id", async (req, res) => {
+	const { id } = req.params;
+	const { confirmation } = req.query;
+	if (confirmation) {
+		await deleteRecipeCollection(id);
+		res.redirect("/u/collections");
+		return;
+	}
+
+	const recipeCollectionDetail = await getRecipeCollection(id);
+	res.render("components/confirm", {
+		prompt: `You are about to delete *${recipeCollectionDetail?.title}* Collection`,
+		yesMessage: "Are you sure to delete this collection?",
+		yesLink: `/u/collections/delete/${id}?confirmation=true`,
+	});
+});
+
 // Show all collections of user
 CollectionUserRouter.get("/", async (req, res) => {
 	const collections = await getRecipeCollectionOfUser(req.user!._id);
 	res.render("pages/collections/index", {
 		collections,
 		user: req.user,
-		personalised: true,
+		personalised: tru,
 	});
 });
 

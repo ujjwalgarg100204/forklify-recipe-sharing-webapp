@@ -1,9 +1,12 @@
 import Recipe from "../models/Recipe";
-import RecipeModel, { IRecipe, RecipeCategories, Regions } from "../models/Recipe";
-import { MongoID } from "../types/custom";
+import RecipeModel, {
+	IRecipe,
+	RecipeCategories,
+	Regions,
+} from "../models/Recipe";
+import { BookmarkResponse, DeleteResponse, MongoID } from "../types/custom";
 import { Types } from "mongoose";
 import User, { IUser } from "../models/User";
-import { BookmarkResponse, DeleteResponse } from "../types/custom";
 import RecipeCollection from "../models/RecipeCollection";
 
 export async function getPopularRecipes(): Promise<IRecipe[]> {
@@ -86,7 +89,7 @@ export async function deleteRecipe(id: MongoID): Promise<DeleteResponse> {
 
 		await User.updateMany(
 			{
-				$where: "this.bookmarkedRecipes.length > 0 || this.recipes.length > ",
+				$where: "this.bookmarkedRecipes.length > 0 || this.recipes.length > 0",
 			},
 			{ $pull: { bookmarkedRecipes: id, recipes: id } }
 		).exec();

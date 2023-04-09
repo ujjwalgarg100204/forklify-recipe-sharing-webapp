@@ -1,6 +1,10 @@
-import { CategoriesIcons, HowItWorksType, ProfileCard } from "../types/custom";
+import {
+	CategoriesIcons,
+	FilterListItem,
+	HowItWorksType,
+	ProfileCard,
+} from "../types/custom";
 import { RecipeCategories } from "../models/Recipe";
-import { FilterListItem } from "../types/custom";
 
 export const developersProfiles: ProfileCard[] = [
 	{
@@ -15,7 +19,7 @@ export const developersProfiles: ProfileCard[] = [
 		},
 	},
 	{
-		name: "Harsh Aggrawal",
+		name: "Harsh Agrawal",
 		desc: "Just some developer, who wants to do some good",
 		designation: "Developer",
 		imagePath: "/images/devs/harsh.jpg",

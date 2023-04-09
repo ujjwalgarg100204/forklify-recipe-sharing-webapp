@@ -2,8 +2,9 @@ import RecipeCollectionModel, {
 	IRecipeCollection,
 } from "../models/RecipeCollection";
 
-import { MongoID } from "../types/custom";
+import { DeleteResponse, MongoID } from "../types/custom";
 import { Types } from "mongoose";
+import User from "../models/User";
 
 export async function getRecipeCollection(
 	collectionID: MongoID
@@ -41,6 +42,23 @@ export async function insertRecipeCollection(
 		image,
 		author: userID,
 	}).save();
+}
+
+export async function deleteRecipeCollection(
+	id: MongoID
+): Promise<DeleteResponse> {
+	await RecipeCollectionModel.deleteOne({ _id: id });
+	await User.updateOne(
+		{ $where: "this.recipeCollections.length > 0" },
+		{
+			$pull: { recipeCollections: id },
+		}
+	);
+	return {
+		success: true,
+		error: null,
+		deleted: 1,
+	};
 }
 
 export async function getAllRecipeCollections() {
