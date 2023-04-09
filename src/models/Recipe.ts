@@ -39,7 +39,6 @@ export interface IRecipe {
 	steps: string[];
 	tags: string[];
 	image: string;
-	video?: string;
 	region: Regions;
 	servings: number;
 	prepTime: number;
@@ -97,7 +96,6 @@ const recipeSchema: Schema = new Schema<IRecipe>({
 		carb: Number,
 		fat: Number,
 	},
-	video: String,
 	servings: { type: Number, required: true },
 	prepTime: { type: Number, required: true, min: 1 },
 	cookTime: { type: Number, required: true, min: 1 },

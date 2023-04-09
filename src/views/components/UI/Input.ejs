@@ -15,7 +15,7 @@
 	$("#<%= inpID; %>").blur(function() {
 		if ($(this).val()) {
 			$(this).addClass("border-selected-mehandi border-b-2");
-			$(this).siblings().addClass("text-selected-mehandi <%= size === "lg" ? "-top-6 text-base" : "-top-4 text-xs"; %>");
+			$(this).siblings().addClass("text-selected-mehandi <%= size === "lg" ? "-top-5 text-base" : "-top-4 text-xs"; %>");
 		} else {
 			$(this).removeClass("border-selected-mehandi border-b-2");
 			$(this).siblings().removeClass("text-selected-mehandi <%= size === "lg" ? "-top-6 text-base" : "-top-4 text-xs"; %>");

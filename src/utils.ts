@@ -45,3 +45,73 @@ export function isAuthenticated(
 ): void {
 	req.user ? next() : res.redirect("/auth/login");
 }
+
+export function inputRecipeData(
+	title: string,
+	desc: string,
+	image: string,
+	prepTime: string,
+	cookTime: string,
+	category: string,
+	region: string,
+	servings: string,
+	ingredientQuantityNum: string | string[],
+	ingredientQuantitySuffix: string | string[],
+	ingredientName: string | string[],
+	tags: string | string[],
+	calorie: string,
+	protein: string,
+	carbs: string,
+	fat: string,
+	steps: string | string[],
+	notes?: string
+) {
+	return {
+		title: capitalize(title),
+		desc: desc,
+		prepTime: +prepTime,
+		cookTime: +cookTime,
+		servings: +servings,
+		steps:
+			typeof steps === "string"
+				? [steps.trim()]
+				: steps.map(steps => steps.trim()),
+		notes: notes ? notes.trim() : "",
+		nutrition: {
+			calorie: calorie ? +calorie : null,
+			fat: fat ? +fat : null,
+			carbs: carbs ? +carbs : null,
+			protein: protein ? +protein : null,
+		},
+		tags: typeof tags === "string" ? [tags] : tags,
+		image: image,
+		category: category,
+		region: region,
+		ingredients:
+			typeof ingredientName === "string"
+				? [
+						{
+							name: ingredientName,
+							quantity: {
+								num: ingredientQuantityNum,
+								suffix: ingredientQuantitySuffix,
+							},
+						},
+				  ]
+				: ingredientName.map((ingName, index) => ({
+						name: ingName,
+						quantity: {
+							num: ingredientQuantityNum.at(index),
+							suffix: ingredientQuantitySuffix.at(index),
+						},
+				  })),
+	};
+}
+
+export function capitalize(sentence: string): string {
+	return sentence
+		.toLowerCase()
+		.split(" ")
+		.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(" ");
+}

@@ -32,7 +32,6 @@ export async function toggleBookmarkRecipe(
 	recipeId: MongoID,
 	user: IUser
 ): Promise<BookmarkResponse> {
-	console.log(user);
 	// bookmarking means two things, increasing bookmarkCount in recipe and adding id of Recipe in
 	// users bookmarkedRecipes
 	if (user.bookmarkedRecipes.find(recipeID => recipeID.equals(recipeId))) {

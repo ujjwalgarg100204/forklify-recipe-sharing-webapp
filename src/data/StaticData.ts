@@ -38,6 +38,42 @@ export const developersProfiles: ProfileCard[] = [
 		},
 	},
 ];
+/*export const developersProfiles: ProfileCard[] = [
+	{
+		name: "Sajal Garg",
+		desc: "Just some developer, who wants to do some good",
+		designation: "Full Stack Developer",
+		imagePath: "/images/devs/Sajal.jpg",
+		socials: {
+			github: "https://github.com/",
+			instagram: "https://instagram.com/sg_sajal?igshid=ZDdkNTZiNTM=",
+			linkedin: "https://www.linkedin.com/in/",
+		},
+	},
+	{
+		name: "Priyanshi Shah",
+		desc: "Just a developer who wants to change the world for good",
+		designation: "Front-End Developer",
+		imagePath: "/images/devs/Priyanshi.jpg",
+		socials: {
+			github: "https://github.com/Priyanshi2003-gen",
+			instagram: "https://instagram.com/pranshi_27?igshid=ZDdkNTZiNTM=",
+			linkedin: "https://www.linkedin.com/in/priyanshi-shah-2556aa236",
+		},
+	},
+	{
+		name: "Kalluri Manyu Srenitha",
+		desc: "A determined developer who wants to learn new things",
+		designation: "Database Administrator",
+		imagePath: "/images/devs/Kalluri.jpeg",
+		socials: {
+			github: "https://github.com/kallurisrenitha",
+			instagram: "https://www.instagram.com/kallurisrenithaa/",
+			linkedin:
+				"https://www.linkedin.com/in/kalluri-manyu-srenitha-1b8912219/",
+		},
+	},
+];*/
 
 export const howItWorksData: HowItWorksType[] = [
 	{

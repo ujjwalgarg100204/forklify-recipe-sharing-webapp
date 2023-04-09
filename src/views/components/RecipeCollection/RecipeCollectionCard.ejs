@@ -1,7 +1,6 @@
-<a class="swiper-slide shadow-lg p-8 w-fit max-w-[40rem] bg-white cursor-pointer hover:shadow-2xl hover:bg-[hsl(73,42%,97.5%)] hover:scale-110 transition duration-300 group"
-   href="/c/<%= collection._id; %>"
-   title="<%= collection.title; %>"
-   data-id="<%= collection._id %>">
+<div class="swiper-slide shadow-lg p-8 w-fit max-w-[40rem] bg-white cursor-pointer hover:shadow-2xl hover:bg-[hsl(73,42%,97.5%)] hover:scale-110 transition duration-300 group"
+     title="<%= collection.title; %>"
+     data-id="<%= collection._id %>">
     <div class="flex gap-10 w-fit">
         <img class="object-cover p-3 object-center rounded-full aspect-square max-w-[14rem]"
              src="<%= collection.image; %>"
@@ -39,14 +38,15 @@
             <%- include("../../components/Icons/UI/Actions/Trash" , { containerClass: "bg-amber-600 p-3 rounded-full w-12 h-12 group-hover/icon:bg-amber-500", svgClass: "w-full h-full stroke-white" }) -%>
         </button>
     </div>
-</a>
+</div>
 
 <script>
-	document.querySelector("[data-id='<%= collection._id; %>']").addEventListener("click", async function(ev) {
+	document.querySelector("[data-id='<%= collection._id; %>']").addEventListener("click", function(ev) {
 		// check which button was clicked
 		const editButton = ev.target.closest("[data-edit-collection]");
 		const deleteButton = ev.target.closest("[data-delete-collection]");
-
+		console.log(editButton)
+		console.log(ev.target);
 		if (editButton) {
 			// go to edit page of recipe
 			location.href = `/u/collections/edit/<%= collection._id %>`

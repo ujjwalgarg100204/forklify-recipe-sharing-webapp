@@ -24,8 +24,11 @@ RecipeRouter.get("/", async (req, res) => {
 	});
 });
 // protected routes
-RecipeRouter.get("/create", (req, res) => {
+/*RecipeRouter.get("/create", (req, res) => {
 	res.redirect("/u/recipe/create");
+});*/
+RecipeRouter.get("/create", (req, res) => {
+	res.redirect("/u/recipes/create");
 });
 
 RecipeRouter.get("/update/:id", (req, res) => {

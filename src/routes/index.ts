@@ -11,6 +11,7 @@ import {
 } from "../data/StaticData";
 import { CategoriesIcons, HowItWorksType, ProfileCard } from "../types/custom";
 import { toRecipeCard } from "../utils";
+import ApiRouter from "./api";
 
 const IndexRouter = Router();
 
@@ -19,6 +20,7 @@ IndexRouter.use("/auth", AuthRoutes);
 IndexRouter.use("/r", RecipeRouter);
 IndexRouter.use("/c", CollectionRouter);
 IndexRouter.use("/u", UserRouter);
+IndexRouter.use("/api", ApiRouter)
 
 IndexRouter.get("/", async (req, res) => {
 	// static data

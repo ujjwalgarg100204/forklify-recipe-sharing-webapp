@@ -32,7 +32,7 @@ interface RequestRecipe {
 
 const RecipeCreateRouter = Router();
 
-RecipeCreateRouter.route("/")
+RecipeCreateRouter.route("/recipe")
 	.get((req, res) => {
 		res.render("pages/recipe/create", { user: req.user });
 	})

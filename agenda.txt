@@ -1,0 +1,7 @@
+Today's Agenda: Make the project working and bring to end
+Left out work:
+1. Create/ update page of recipe
+2. Create/ update page of recipe collection
+3. Delete page of recipe & Recipe Collection
+4. Add recipe to collection
+5.

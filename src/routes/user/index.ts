@@ -33,6 +33,7 @@ UserRouter.get("/dashboard", async (req, res) => {
 			).length,
 		0
 	);
+
 	res.render("pages/user/dashboard", {
 		recipes: userRecipes,
 		collections: userCollections,

@@ -1,13 +1,17 @@
 import { Router } from "express";
 import { getRecipesOfUser } from "../../data/User";
-import { IRecipe } from "../../models/Recipe";
+import RecipeModel, {
+	IRecipe,
+	RecipeCategories,
+	Regions,
+} from "../../models/Recipe";
 import {
 	deleteRecipe,
 	getAllBookmarkedRecipes,
 	getRecipe,
 	toggleBookmarkRecipe,
 } from "../../data/Recipes";
-import { toRecipeCard } from "../../utils";
+import { inputRecipeData, toRecipeCard } from "../../utils";
 
 const RecipeUserRouter = Router();
 
@@ -28,18 +32,113 @@ RecipeUserRouter.get("/saved", async (req, res) => {
 });
 
 RecipeUserRouter.get("/create", (req, res) => {
-	res.render("pages/recipe/create", { user: req.user });
+	res.render("pages/user/recipes/create-edit", {
+		user: req.user,
+		categories: Object.values(RecipeCategories),
+		regions: Object.values(Regions),
+		editable: false,
+		recipe: {},
+	});
 });
+
+RecipeUserRouter.post("/create", async (req, res) => {
+	const formInputData = inputRecipeData(
+		req.body.title,
+		req.body.desc,
+		req.body.image,
+		req.body.prepTime,
+		req.body.cookTime,
+		req.body.category,
+		req.body.region,
+		req.body.servings,
+		req.body.ingredientQuantityNum,
+		req.body.ingredientQuantitySuffix,
+		req.body.ingredientName,
+		req.body.tags,
+		req.body.calorie,
+		req.body.protein,
+		req.body.carbs,
+		req.body.fat,
+		req.body.steps,
+		req.body.notes
+	);
+
+	try {
+		const createdRecipe = await new RecipeModel({
+			...formInputData,
+			author: req.user!._id,
+			bookmarkCount: 0,
+			reviews: [],
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		}).save();
+		console.log(createdRecipe);
+	} catch (err) {
+		console.log(err);
+	} finally {
+		res.redirect("/u/recipes");
+	}
+});
+
 RecipeUserRouter.get("/search", (req, res) => {
 	res.redirect("/r/search");
 });
 RecipeUserRouter.get("/edit/:id", async (req, res) => {
 	const { id } = req.params;
-	const recipe = await getRecipe(id);
-	res.render("pages/recipe/update/[id]", {
-		recipe: toRecipeCard(recipe!),
+	const recipe = (await getRecipe(id)) as IRecipe;
+	res.render("pages/user/recipes/create-edit", {
 		user: req.user,
+		categories: Object.values(RecipeCategories),
+		regions: Object.values(Regions),
+		recipe: toRecipeCard(recipe),
+		editable: true,
 	});
+});
+
+RecipeUserRouter.post("/edit/:id", async (req, res) => {
+	const { id } = req.params;
+	console.log(req.body);
+	const formInputData = inputRecipeData(
+		req.body.title,
+		req.body.desc,
+		req.body.image,
+		req.body.prepTime,
+		req.body.cookTime,
+		req.body.category,
+		req.body.region,
+		req.body.servings,
+		req.body.ingredientQuantityNum,
+		req.body.ingredientQuantitySuffix,
+		req.body.ingredientName,
+		req.body.tags,
+		req.body.calorie,
+		req.body.protein,
+		req.body.carb,
+		req.body.fat,
+		req.body.steps,
+		req.body.notes
+	);
+	console.log(await RecipeModel.find({ _id: id }).lean().exec());
+	console.log(formInputData);
+
+	try {
+		const updateRecipe = await RecipeModel.updateOne(
+			{ _id: id },
+			{
+				$set: {
+					...formInputData,
+					updatedAt: new Date(),
+				},
+			}
+		)
+			.lean()
+			.exec();
+		console.log(updateRecipe);
+	} catch (err) {
+		console.log(err);
+	} finally {
+		res.redirect("/u/recipes");
+	}
 });
 
 RecipeUserRouter.get("/delete/:id", async (req, res) => {

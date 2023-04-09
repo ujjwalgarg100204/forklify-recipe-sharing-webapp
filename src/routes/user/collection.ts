@@ -11,7 +11,11 @@ const CollectionUserRouter = Router();
 
 // Create User Collection
 CollectionUserRouter.get("/create", (req, res) => {
-	res.render("pages/collections/create", { user: req.user });
+	res.render("pages/user/collections/create-edit", {
+		user: req.user,
+		editable: false,
+		collection: {},
+	});
 });
 
 CollectionUserRouter.post("/create", async (req, res) => {
@@ -21,14 +25,15 @@ CollectionUserRouter.post("/create", async (req, res) => {
 });
 
 // Update User Collection
-CollectionUserRouter.get("/update/:id", async (req, res) => {
+CollectionUserRouter.get("/edit/:id", async (req, res) => {
 	const { id } = req.params;
 	const collectionData = (await getRecipeCollection(id)) as IRecipeCollection;
 	console.log({ su: "s", ...collectionData });
 
-	res.render("pages/collections/update", {
-		...collectionData,
+	res.render("pages/user/collections/create-edit", {
 		user: req.user,
+		editable: true,
+		collection: collectionData,
 	});
 });
 

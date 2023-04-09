@@ -35,7 +35,7 @@ export async function insertRecipeCollection(
 	desc: string,
 	image: string
 ) {
-	return new RecipeCollectionModel({
+	return await new RecipeCollectionModel({
 		title,
 		desc,
 		image,
