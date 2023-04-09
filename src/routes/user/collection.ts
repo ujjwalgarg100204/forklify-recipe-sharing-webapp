@@ -70,7 +70,7 @@ CollectionUserRouter.get("/", async (req, res) => {
 	res.render("pages/collections/index", {
 		collections,
 		user: req.user,
-		personalised: tru,
+		personalised: true,
 	});
 });
 
