@@ -1,5 +1,4 @@
 import { Router } from "express";
-import RecipeCreateRouter from "./create";
 import { getRecipesOfUser } from "../../data/User";
 
 import RecipeUserRouter from "./recipe";
@@ -12,7 +11,6 @@ const UserRouter = Router();
 
 UserRouter.use(isAuthenticated);
 
-UserRouter.use("/create", RecipeCreateRouter);
 UserRouter.use("/collections", CollectionUserRouter);
 UserRouter.use("/recipes", RecipeUserRouter);
 

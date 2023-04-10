@@ -7,6 +7,7 @@ import { IRecipeCollection } from "../models/RecipeCollection";
 import { getRecipe } from "../data/Recipes";
 import { RecipeCollectionDetailed } from "../types/custom";
 import { toRecipeCard } from "../utils";
+import { filterListCollections } from "../data/StaticData";
 
 const CollectionRouter = Router();
 
@@ -29,7 +30,25 @@ CollectionRouter.get("/update/:id", (req, res) => {
 
 // public routes
 CollectionRouter.get("/search", (req, res) => {
-	res.render("pages/collection/search", { user: req.user });
+	const filters = filterListCollections;
+	res.render("pages/collections/search", {
+		user: req.user,
+		filters,
+		resultCollections: [],
+		showResults: false
+	});
+});
+
+CollectionRouter.post("/search/results", async (req, res) => {
+	const filters = filterListCollections;
+	const { userFilters } = req.body;
+
+	res.render("pages/collections/search", {
+		user: req.user,
+		showResults: true,
+		resultRecipeCollections: await getAllRecipeCollections(),
+		filters
+	});
 });
 
 CollectionRouter.get("/:id", async (req, res) => {

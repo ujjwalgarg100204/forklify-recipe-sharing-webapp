@@ -1,9 +1,4 @@
-import {
-	CategoriesIcons,
-	FilterListItem,
-	HowItWorksType,
-	ProfileCard,
-} from "../types/custom";
+import { CategoriesIcons, FilterListItem, HowItWorksType, ProfileCard } from "../types/custom";
 import { RecipeCategories } from "../models/Recipe";
 
 export const developersProfiles: ProfileCard[] = [
@@ -105,10 +100,42 @@ export const categoriesIcons: CategoriesIcons[] = [
 	{ svg: "Shrimp", category: RecipeCategories.appetizer },
 ];
 
+export const filterListCollections: FilterListItem[] = [
+	{
+		title: "Recipe Count",
+		filters: [
+			"Minimum 2 recipes",
+			"Minimum 4 recipes",
+			"Minimum 6 recipes",
+			"Minimum 8 recies",
+		],
+	},
+	{
+		title: "Creation",
+		filters: [
+			"few days ago",
+			"1 week ago",
+			"1 month ago",
+			"3 month ago",
+			"6 month go",
+		],
+	},
+	{
+		title: "Last Updated at",
+		filters: [
+			"few days ago",
+			"1 week ago",
+			"1 month ago",
+			"3 month ago",
+			"6 month go",
+		],
+	},
+];
+
 export const filterList: FilterListItem[] = [
 	{
 		title: "time",
-		filters: ["under 15 min", "under 30 min", "under 60 min"],
+		filters: ["under 15 min", "under 30 min", "under 60 mn"],
 	},
 	{
 		title: "dish type",
