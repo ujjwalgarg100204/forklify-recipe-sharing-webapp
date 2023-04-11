@@ -42,6 +42,7 @@ export const developersProfiles: ProfileCard[] = [
 		},
 	},
 ];
+
 export const howItWorksData: HowItWorksType[] = [
 	{
 		title: "Open your fridge!",
